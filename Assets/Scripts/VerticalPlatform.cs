@@ -12,13 +12,13 @@ public class VerticalPlatform : MonoBehaviour
         effector = GetComponent<PlatformEffector2D>();
     }
     void Update() {
-        if (Input.GetAxis("Vertical") > 0)
+        if (Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S))
         {
             waitTime = 0.5f;
         }
-        if (Input.GetAxis("Vertical") < 0)
+        if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
         {
-            if(waitTime <0){
+            if(waitTime < 0){
                 effector.rotationalOffset = 180f;
                 waitTime = 0.5f;
             } 
@@ -27,6 +27,10 @@ public class VerticalPlatform : MonoBehaviour
                waitTime -= Time.deltaTime;
             }
         }
+if(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)){
+    effector.rotationalOffset = 0;
+}
+
     }
 
 }
