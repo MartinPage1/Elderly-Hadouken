@@ -2,18 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(CapsuleCollider2D))]
-
-public class CharacterController2D : MonoBehaviour
+public class CharacterTwoController2D : MonoBehaviour
 {
-    // Move player in 2D space
+// Move player in 2D space
     public float maxSpeed = 3.4f;
     public float jumpHeight = 6.5f;
     public float gravityScale = 1.5f;
     public float maxHitPoints = 100f;
     public float hitPoints = 100f;
     public Camera mainCamera;
+    
+    public GameObject weakShot;
 
     bool facingRight = true;
     float moveDirection = 0;
@@ -43,10 +42,11 @@ public class CharacterController2D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        WeakAttack();
         // Movement controls
-        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && (isGrounded || Mathf.Abs(r2d.velocity.x) > 0.01f))
+        if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)) && (isGrounded || Mathf.Abs(r2d.velocity.x) > 0.01f))
         {
-            moveDirection = Input.GetKey(KeyCode.A) ? -1 : 1;
+            moveDirection = Input.GetKey(KeyCode.LeftArrow) ? -1 : 1;
         }
         else
         {
@@ -72,11 +72,21 @@ public class CharacterController2D : MonoBehaviour
         }
 
         // Jumping
-        if (Input.GetKeyDown(KeyCode.W) && isGrounded || Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded)
         {
             r2d.velocity = new Vector2(r2d.velocity.x, jumpHeight);
         }
-
+    }
+    void WeakAttack()
+    {
+        if(Input.GetKeyDown(KeyCode.Comma))
+        {
+            Instantiate(weakShot, transform.position + new Vector3(1f, 0, 0), transform.rotation);
+        }
+        else if(Input.GetKeyDown(KeyCode.Period))
+        {
+            Instantiate(weakShot, transform.position + new Vector3(-1f, 0, 0), transform.rotation);
+        }
     }
 
     void FixedUpdate()
@@ -106,23 +116,5 @@ public class CharacterController2D : MonoBehaviour
         // Simple debug
         Debug.DrawLine(groundCheckPos, groundCheckPos - new Vector3(0, colliderRadius, 0), isGrounded ? Color.green : Color.red);
         Debug.DrawLine(groundCheckPos, groundCheckPos - new Vector3(colliderRadius, 0, 0), isGrounded ? Color.green : Color.red);
-    }
-
-
-    //void Damaged {
-    //    //if
-    //}
-   void OnCollisionEnter2D(Collision2D col)
-    {
-        //PlayerTwoBullet
-        if(col.collider.gameObject.name == "PlayerTwoBullet(Clone)"){
-            hitPoints = hitPoints - 5f;
-           // hitPoints--;
-            Destroy (col.collider.gameObject);
-        }
-        if (hitPoints <= 0)
-        {
-            Destroy (gameObject);
-        }
     }
 }
