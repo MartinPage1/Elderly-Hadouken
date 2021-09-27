@@ -130,6 +130,11 @@ public class CharacterTwoController2D : MonoBehaviour
         Debug.DrawLine(groundCheckPos, groundCheckPos - new Vector3(0, colliderRadius, 0), isGrounded ? Color.green : Color.red);
         Debug.DrawLine(groundCheckPos, groundCheckPos - new Vector3(colliderRadius, 0, 0), isGrounded ? Color.green : Color.red);
     }
+        void ChangeSprite()
+    {
+        spriteRenderer.sprite = newSprite; 
+    }
+
        void OnCollisionEnter2D(Collision2D col)
     {
         //PlayerTwoBullet

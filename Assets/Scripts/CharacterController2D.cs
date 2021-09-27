@@ -24,7 +24,6 @@ public class CharacterController2D : MonoBehaviour
     public Sprite walkingSprite;
 
     private Animator animator;
-    //private bool m_Walk;
 
     bool facingRight = true;
     float moveDirection = 0;
@@ -47,7 +46,7 @@ public class CharacterController2D : MonoBehaviour
         r2d.gravityScale = gravityScale;
         facingRight = t.localScale.x > 0;
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-       // m_Walk = false;
+
 
         if (mainCamera)
         {
@@ -64,7 +63,6 @@ public class CharacterController2D : MonoBehaviour
         {
             moveDirection = Input.GetKey(KeyCode.A) ? -1 : 1;
             animator.SetBool("isWalking", true);
-           // m_Walk = true;
         }
         else
         {
@@ -72,7 +70,6 @@ public class CharacterController2D : MonoBehaviour
             {
                 moveDirection = 0;
                 animator.SetBool("isWalking", false);
-               // m_Walk = false;
             }
         }
 
@@ -100,7 +97,7 @@ public class CharacterController2D : MonoBehaviour
 
     }
 
-       void WeakAttack()
+    void WeakAttack()
     {
         if(Input.GetKeyDown(KeyCode.E))
         {
@@ -145,11 +142,6 @@ public class CharacterController2D : MonoBehaviour
     {
         spriteRenderer.sprite = newSprite; 
     }
-
-
-    //void Damaged {
-    //    //if
-    //}
    void OnCollisionEnter2D(Collision2D col)
     {
         //PlayerTwoBullet
