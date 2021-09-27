@@ -6,13 +6,21 @@ public class CharacterTwoController2D : MonoBehaviour
 {
 // Move player in 2D space
     public float maxSpeed = 3.4f;
-    public float jumpHeight = 6.5f;
+    public float jumpHeight = 12f;
     public float gravityScale = 1.5f;
     public float maxHitPoints = 100f;
     public float hitPoints = 100f;
     public Camera mainCamera;
     
+    AudioSource audioSource;
+    public AudioClip scream;
     public GameObject weakShot;
+
+    public SpriteRenderer spriteRenderer;
+    public Sprite newSprite;
+    public Sprite walkingSprite;
+
+    private Animator animator;
 
     bool facingRight = true;
     float moveDirection = 0;
@@ -26,12 +34,15 @@ public class CharacterTwoController2D : MonoBehaviour
     void Start()
     {
         t = transform;
+        animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         r2d = GetComponent<Rigidbody2D>();
         mainCollider = GetComponent<CapsuleCollider2D>();
         r2d.freezeRotation = true;
         r2d.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         r2d.gravityScale = gravityScale;
         facingRight = t.localScale.x > 0;
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
         if (mainCamera)
         {
@@ -47,12 +58,14 @@ public class CharacterTwoController2D : MonoBehaviour
         if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)) && (isGrounded || Mathf.Abs(r2d.velocity.x) > 0.01f))
         {
             moveDirection = Input.GetKey(KeyCode.LeftArrow) ? -1 : 1;
+            animator.SetBool("isWalking", true);
         }
         else
         {
             if (isGrounded || r2d.velocity.magnitude < 0.01f)
             {
                 moveDirection = 0;
+                animator.SetBool("isWalking", false);
             }
         }
 
@@ -116,5 +129,21 @@ public class CharacterTwoController2D : MonoBehaviour
         // Simple debug
         Debug.DrawLine(groundCheckPos, groundCheckPos - new Vector3(0, colliderRadius, 0), isGrounded ? Color.green : Color.red);
         Debug.DrawLine(groundCheckPos, groundCheckPos - new Vector3(colliderRadius, 0, 0), isGrounded ? Color.green : Color.red);
+    }
+       void OnCollisionEnter2D(Collision2D col)
+    {
+        //PlayerTwoBullet
+        if(col.collider.gameObject.name == "PlayerOneBullet(Clone)"){
+            hitPoints = hitPoints - 5f;
+           // hitPoints--;
+            Destroy (col.collider.gameObject);
+            animator.SetTrigger("isHit");
+            audioSource.PlayOneShot(scream, 0.7F);
+            //ChangeSprite();
+        }
+        if (hitPoints <= 0)
+        {
+            Destroy (gameObject);
+        }
     }
 }

@@ -9,11 +9,22 @@ public class CharacterController2D : MonoBehaviour
 {
     // Move player in 2D space
     public float maxSpeed = 3.4f;
-    public float jumpHeight = 6.5f;
+    public float jumpHeight = 12f;
     public float gravityScale = 1.5f;
     public float maxHitPoints = 100f;
     public float hitPoints = 100f;
     public Camera mainCamera;
+
+    AudioSource audioSource;
+    public AudioClip scream;
+    public GameObject weakShot;
+
+    public SpriteRenderer spriteRenderer;
+    public Sprite newSprite;
+    public Sprite walkingSprite;
+
+    private Animator animator;
+    //private bool m_Walk;
 
     bool facingRight = true;
     float moveDirection = 0;
@@ -27,12 +38,16 @@ public class CharacterController2D : MonoBehaviour
     void Start()
     {
         t = transform;
+        animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         r2d = GetComponent<Rigidbody2D>();
         mainCollider = GetComponent<CapsuleCollider2D>();
         r2d.freezeRotation = true;
         r2d.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         r2d.gravityScale = gravityScale;
         facingRight = t.localScale.x > 0;
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+       // m_Walk = false;
 
         if (mainCamera)
         {
@@ -43,16 +58,21 @@ public class CharacterController2D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        WeakAttack();
         // Movement controls
         if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && (isGrounded || Mathf.Abs(r2d.velocity.x) > 0.01f))
         {
             moveDirection = Input.GetKey(KeyCode.A) ? -1 : 1;
+            animator.SetBool("isWalking", true);
+           // m_Walk = true;
         }
         else
         {
             if (isGrounded || r2d.velocity.magnitude < 0.01f)
             {
                 moveDirection = 0;
+                animator.SetBool("isWalking", false);
+               // m_Walk = false;
             }
         }
 
@@ -63,6 +83,7 @@ public class CharacterController2D : MonoBehaviour
             {
                 facingRight = true;
                 t.localScale = new Vector3(Mathf.Abs(t.localScale.x), t.localScale.y, transform.localScale.z);
+                
             }
             if (moveDirection < 0 && facingRight)
             {
@@ -77,6 +98,18 @@ public class CharacterController2D : MonoBehaviour
             r2d.velocity = new Vector2(r2d.velocity.x, jumpHeight);
         }
 
+    }
+
+       void WeakAttack()
+    {
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            Instantiate(weakShot, transform.position + new Vector3(1f, 0, 0), transform.rotation);
+        }
+        else if(Input.GetKeyDown(KeyCode.Q))
+        {
+            Instantiate(weakShot, transform.position + new Vector3(-1f, 0, 0), transform.rotation);
+        }
     }
 
     void FixedUpdate()
@@ -108,6 +141,11 @@ public class CharacterController2D : MonoBehaviour
         Debug.DrawLine(groundCheckPos, groundCheckPos - new Vector3(colliderRadius, 0, 0), isGrounded ? Color.green : Color.red);
     }
 
+    void ChangeSprite()
+    {
+        spriteRenderer.sprite = newSprite; 
+    }
+
 
     //void Damaged {
     //    //if
@@ -119,6 +157,9 @@ public class CharacterController2D : MonoBehaviour
             hitPoints = hitPoints - 5f;
            // hitPoints--;
             Destroy (col.collider.gameObject);
+            animator.SetTrigger("isHit");
+            audioSource.PlayOneShot(scream, 0.7F);
+            //ChangeSprite();
         }
         if (hitPoints <= 0)
         {
