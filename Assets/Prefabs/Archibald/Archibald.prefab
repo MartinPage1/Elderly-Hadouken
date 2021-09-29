@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 7784680694310026503}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -162,9 +162,12 @@ MonoBehaviour:
   gravityScale: 1.5
   maxHitPoints: 100
   hitPoints: 100
+  powerPoints: 0
+  maxPowerPoints: 100
   mainCamera: {fileID: 0}
   scream: {fileID: 8300000, guid: e641a9819916f8440ab322ed80ec33fb, type: 3}
   weakShot: {fileID: 5323203376381619700, guid: f1ce549fc3689a14a94ea586687c27d2, type: 3}
+  weakShot2: {fileID: 2406222085733960761, guid: a2410de837a26e9489105a18b6427f5a, type: 3}
   spriteRenderer: {fileID: 7784680694310026501}
   newSprite: {fileID: 0}
   walkingSprite: {fileID: 0}
@@ -185,9 +188,12 @@ MonoBehaviour:
   gravityScale: 1.5
   maxHitPoints: 100
   hitPoints: 100
+  powerPoints: 0
+  maxPowerPoints: 100
   mainCamera: {fileID: 0}
   scream: {fileID: 8300000, guid: e641a9819916f8440ab322ed80ec33fb, type: 3}
   weakShot: {fileID: 5645638907292514964, guid: 676dbc18e610b1f43b2c56ca04211d92, type: 3}
+  weakShot2: {fileID: 6177109709079956966, guid: bb002519ae961d84181eee1b0538f4fc, type: 3}
   spriteRenderer: {fileID: 7784680694310026501}
   newSprite: {fileID: 0}
   walkingSprite: {fileID: 0}

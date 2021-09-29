@@ -8,16 +8,19 @@ using UnityEngine;
 public class CharacterController2D : MonoBehaviour
 {
     // Move player in 2D space
-    public float maxSpeed = 3.4f;
+    public float maxSpeed = 5.4f;
     public float jumpHeight = 12f;
     public float gravityScale = 1.5f;
     public float maxHitPoints = 100f;
     public float hitPoints = 100f;
+    public float powerPoints = 0f;
+    public float maxPowerPoints = 100f;
     public Camera mainCamera;
 
     AudioSource audioSource;
     public AudioClip scream;
     public GameObject weakShot;
+    public GameObject weakShot2;
 
     public SpriteRenderer spriteRenderer;
     public Sprite newSprite;
@@ -73,6 +76,12 @@ public class CharacterController2D : MonoBehaviour
             }
         }
 
+        // Power Points max stay at max
+            if (powerPoints >= maxPowerPoints)
+            {
+                powerPoints = maxPowerPoints;
+            }
+
         // Change facing direction
         if (moveDirection != 0)
         {
@@ -99,13 +108,15 @@ public class CharacterController2D : MonoBehaviour
 
     void WeakAttack()
     {
+        //Shoot Right
         if(Input.GetKeyDown(KeyCode.E))
         {
             Instantiate(weakShot, transform.position + new Vector3(1f, 0, 0), transform.rotation);
         }
+        //Shoot Left
         else if(Input.GetKeyDown(KeyCode.Q))
         {
-            Instantiate(weakShot, transform.position + new Vector3(-1f, 0, 0), transform.rotation);
+            Instantiate(weakShot2, transform.position + new Vector3(-1f, 0, 0), transform.rotation);
         }
     }
 
@@ -147,6 +158,14 @@ public class CharacterController2D : MonoBehaviour
         //PlayerTwoBullet
         if(col.collider.gameObject.name == "PlayerTwoBullet(Clone)"){
             hitPoints = hitPoints - 5f;
+            if (powerPoints < maxPowerPoints)
+            {
+                powerPoints = powerPoints + 7f;
+            }
+            else if (powerPoints >= maxPowerPoints)
+            {
+                powerPoints = maxPowerPoints;
+            }
            // hitPoints--;
             Destroy (col.collider.gameObject);
             animator.SetTrigger("isHit");
