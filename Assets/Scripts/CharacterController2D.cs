@@ -89,12 +89,14 @@ public class CharacterController2D : MonoBehaviour
             {
                 facingRight = true;
                 t.localScale = new Vector3(Mathf.Abs(t.localScale.x), t.localScale.y, transform.localScale.z);
+
                 
             }
             if (moveDirection < 0 && facingRight)
             {
                 facingRight = false;
                 t.localScale = new Vector3(-Mathf.Abs(t.localScale.x), t.localScale.y, t.localScale.z);
+
             }
         }
 
@@ -112,11 +114,13 @@ public class CharacterController2D : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.E))
         {
             Instantiate(weakShot, transform.position + new Vector3(1f, 0, 0), transform.rotation);
+            animator.SetTrigger("isAttacking");
         }
         //Shoot Left
         else if(Input.GetKeyDown(KeyCode.Q))
         {
             Instantiate(weakShot2, transform.position + new Vector3(-1f, 0, 0), transform.rotation);
+            animator.SetTrigger("isAttacking");
         }
     }
 

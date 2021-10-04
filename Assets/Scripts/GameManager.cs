@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Instantiate(playerOnePrefab, new Vector3(-8.5f, -2.2f, 0), Quaternion.identity);
+        Instantiate(playerOnePrefab, new Vector3(-7.8f, -2.8f, 0), Quaternion.identity);
+        Instantiate(playerTwoPrefab, new Vector3(8f, -2.8f, 0), Quaternion.identity);
     }
 
     // Update is called once per frame

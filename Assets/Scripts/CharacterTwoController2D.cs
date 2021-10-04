@@ -104,11 +104,13 @@ public class CharacterTwoController2D : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Period))
         {
             Instantiate(weakShot, transform.position + new Vector3(1f, 0, 0), transform.rotation);
+            animator.SetTrigger("isAttacking");
         }
         //Shoot Left
         else if(Input.GetKeyDown(KeyCode.Comma))
         {
             Instantiate(weakShot2, transform.position + new Vector3(-1f, 0, 0), transform.rotation);
+            animator.SetTrigger("isAttacking");
         }
     }
 
