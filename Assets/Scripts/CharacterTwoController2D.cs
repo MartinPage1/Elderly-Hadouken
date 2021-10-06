@@ -13,6 +13,8 @@ public class CharacterTwoController2D : MonoBehaviour
     public float powerPoints = 0f;
     public float maxPowerPoints = 100f;
     public Camera mainCamera;
+    public float cooldown = 1f; //seconds
+    private float lastAttackedAt = -9999f;
     
     AudioSource audioSource;
     public AudioClip scream;
@@ -103,14 +105,20 @@ public class CharacterTwoController2D : MonoBehaviour
         //Shoot Right
         if(Input.GetKeyDown(KeyCode.Period))
         {
-            Instantiate(weakShot, transform.position + new Vector3(1f, 0, 0), transform.rotation);
-            animator.SetTrigger("isAttacking");
+            if (Time.time > lastAttackedAt + cooldown){
+                Instantiate(weakShot, transform.position + new Vector3(1f, 0, 0), transform.rotation);
+                animator.SetTrigger("isAttacking");
+                lastAttackedAt = Time.time;
+            }
         }
         //Shoot Left
         else if(Input.GetKeyDown(KeyCode.Comma))
         {
-            Instantiate(weakShot2, transform.position + new Vector3(-1f, 0, 0), transform.rotation);
-            animator.SetTrigger("isAttacking");
+            if (Time.time > lastAttackedAt + cooldown){
+                Instantiate(weakShot2, transform.position + new Vector3(-1f, 0, 0), transform.rotation);
+                animator.SetTrigger("isAttacking");
+                lastAttackedAt = Time.time;
+            }
         }
     }
 
