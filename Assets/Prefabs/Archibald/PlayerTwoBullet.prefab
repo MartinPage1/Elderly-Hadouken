@@ -98,6 +98,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da3d166bed457ff4c947472007a30fa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectileSpeed: 14
+  bouncing: 0
+  isProjectile: 1
 --- !u!82 &4933337971269271926
 AudioSource:
   m_ObjectHideFlags: 0
