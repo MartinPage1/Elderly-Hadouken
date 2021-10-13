@@ -8,6 +8,8 @@ TagManager:
   - Player One Bullet
   - PlayerTwoBullet
   - Something
+  - Wall
+  - Floor
   layers:
   - Default
   - TransparentFX
