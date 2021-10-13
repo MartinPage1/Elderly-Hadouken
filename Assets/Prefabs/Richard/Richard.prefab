@@ -349,7 +349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0da8849ecd09bb4eba6fca2665c88d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 5.4
+  maxSpeed: 3.4
   jumpHeight: 12
   gravityScale: 1.5
   maxHitPoints: 100
@@ -376,7 +376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b931f64d959c294b9c51ac72a7a271c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 5.4
+  maxSpeed: 3.4
   jumpHeight: 12
   gravityScale: 1.5
   maxHitPoints: 100

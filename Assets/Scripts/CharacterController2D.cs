@@ -165,11 +165,24 @@ public class CharacterController2D : MonoBehaviour
     {
         spriteRenderer.sprite = newSprite; 
     }
+    private IEnumerator Pause()
+    {
+        Time.timeScale = 0.01f;
+        float pauseEndTime = Time.realtimeSinceStartup + .2f;
+        while (Time.realtimeSinceStartup < pauseEndTime)
+        {
+            yield return 0;
+        }
+        Time.timeScale = 1;
+    }
    void OnCollisionEnter2D(Collision2D col)
     {
         //PlayerTwoBullet
         if(col.collider.gameObject.name == "PlayerTwoBullet(Clone)"){
             hitPoints = hitPoints - 5f;
+            CameraShake.Shake(0.15f, 0.15f);
+            StartCoroutine("Pause");
+            CameraShake.Shake(0.25f, 0.25f);
             if (powerPoints < maxPowerPoints)
             {
                 powerPoints = powerPoints + 7f;

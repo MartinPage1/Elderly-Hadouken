@@ -25,8 +25,7 @@ public class WeakAttackScript : MonoBehaviour
       }
       else if(collision.gameObject.tag == "Something" && isProjectile==false)
       {
-        Vector3 relative;
-        relative = transform.InverseTransformDirection(Vector3.forward);
+        Vector3 relative = transform.InverseTransformDirection(Vector3.forward);
       }    
    }
 }
