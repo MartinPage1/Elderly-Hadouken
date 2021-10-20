@@ -15,6 +15,7 @@ public class CharacterTwoController2D : MonoBehaviour
     public Camera mainCamera;
     public float cooldown = 1f; //seconds
     private float lastAttackedAt = -9999f;
+    public GameManager gM;
     
     AudioSource audioSource;
     public AudioClip scream;
@@ -40,6 +41,7 @@ public class CharacterTwoController2D : MonoBehaviour
     void Start()
     {
         t = transform;
+        gM = GameObject.Find("GameManager").GetComponent<GameManager>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         r2d = GetComponent<Rigidbody2D>();
@@ -59,6 +61,8 @@ public class CharacterTwoController2D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HPTracker();
+        PPTracker();
         WeakAttack();
         // Movement controls
         if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)) && (isGrounded || Mathf.Abs(r2d.velocity.x) > 0.01f))
@@ -101,6 +105,14 @@ public class CharacterTwoController2D : MonoBehaviour
             r2d.velocity = new Vector2(r2d.velocity.x, jumpHeight);
             animator.SetTrigger("isJumping");
         }
+    }
+    void HPTracker()
+    {
+        gM.UpdateHealthP2(hitPoints);
+    }
+    void PPTracker()
+    {
+        gM.UpdatePowerP2(powerPoints);
     }
     void WeakAttack()
     {
@@ -190,6 +202,7 @@ public class CharacterTwoController2D : MonoBehaviour
         if (hitPoints <= 0)
         {
             Destroy (gameObject);
+            gM.PlayerTwoDied();
         }
     }
 }
