@@ -30,6 +30,7 @@ public class CharacterTwoController2D : MonoBehaviour
     bool facingRight = true;
     float moveDirection = 0;
     bool isGrounded = false;
+    bool isJumping = false;
     Vector3 cameraPos;
     Rigidbody2D r2d;
     CapsuleCollider2D mainCollider;
@@ -98,6 +99,7 @@ public class CharacterTwoController2D : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded)
         {
             r2d.velocity = new Vector2(r2d.velocity.x, jumpHeight);
+            animator.SetTrigger("isJumping");
         }
     }
     void WeakAttack()
@@ -170,6 +172,7 @@ public class CharacterTwoController2D : MonoBehaviour
         if(col.collider.gameObject.name == "PlayerOneBullet(Clone)"){
             hitPoints = hitPoints - 5f;
             CameraShake.Shake(0.15f, 0.15f);
+            animator.SetTrigger("isHit");
             StartCoroutine("Pause");
             if (powerPoints < maxPowerPoints)
             {
@@ -181,7 +184,6 @@ public class CharacterTwoController2D : MonoBehaviour
             }
            // hitPoints--;
             Destroy (col.collider.gameObject);
-            animator.SetTrigger("isHit");
             audioSource.PlayOneShot(scream, 0.7F);
             //ChangeSprite();
         }

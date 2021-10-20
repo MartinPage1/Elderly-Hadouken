@@ -106,6 +106,7 @@ public class CharacterController2D : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W) && isGrounded || Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             r2d.velocity = new Vector2(r2d.velocity.x, jumpHeight);
+            animator.SetTrigger("isJumping");
         }
 
     }
@@ -181,6 +182,7 @@ public class CharacterController2D : MonoBehaviour
         if(col.collider.gameObject.name == "PlayerTwoBullet(Clone)"){
             hitPoints = hitPoints - 5f;
             CameraShake.Shake(0.15f, 0.15f);
+            animator.SetTrigger("isHit");
             StartCoroutine("Pause");
             CameraShake.Shake(0.25f, 0.25f);
             if (powerPoints < maxPowerPoints)
@@ -193,7 +195,6 @@ public class CharacterController2D : MonoBehaviour
             }
            // hitPoints--;
             Destroy (col.collider.gameObject);
-            animator.SetTrigger("isHit");
             audioSource.PlayOneShot(scream, 0.7F);
             //ChangeSprite();
         }
