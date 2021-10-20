@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterTwoController2D : MonoBehaviour
 {
 // Move player in 2D space
-    public float maxSpeed = 5.4f;
+    public float maxSpeed = 8.4f;
     public float jumpHeight = 12f;
     public float gravityScale = 1.5f;
     public float maxHitPoints = 100f;
