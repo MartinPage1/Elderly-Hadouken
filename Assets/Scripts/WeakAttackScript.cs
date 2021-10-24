@@ -16,6 +16,7 @@ public class WeakAttackScript : MonoBehaviour
        }
       if(isProjectile==false){
          Destroy(gameObject, 5);
+         StartCoroutine("DestroySelf");
          }
    }
    private void OnCollisionEnter2D (Collision2D collision) {
@@ -28,4 +29,13 @@ public class WeakAttackScript : MonoBehaviour
         Vector3 relative = transform.InverseTransformDirection(Vector3.forward);
       }    
    }
+   private IEnumerator DestroySelf()
+    {
+        float pauseEndTime = Time.realtimeSinceStartup + 5f;
+        while (Time.realtimeSinceStartup < pauseEndTime)
+        {
+            yield return 0;
+        }
+        Destroy (gameObject);
+    }
 }

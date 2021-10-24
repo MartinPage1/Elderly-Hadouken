@@ -213,7 +213,7 @@ public class CharacterController2D : MonoBehaviour
     {
         hitPoints -= damageValue;
         healthBar.value = hitPoints;
-        animator.SetFloat("hit", 1);
+        //animator.SetFloat("hit", 1);
     }
    void OnCollisionEnter2D(Collision2D col)
     {
