@@ -10,6 +10,8 @@ TagManager:
   - Something
   - Wall
   - Floor
+  - PlayerOneHealthSlider
+  - PlayerTwoHealthSlider
   layers:
   - Default
   - TransparentFX

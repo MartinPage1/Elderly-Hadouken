@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CapsuleCollider2D))]
@@ -10,6 +11,7 @@ public class CharacterController2D : MonoBehaviour
     // Move player in 2D space
     public float maxSpeed = 8.4f;
     public float jumpHeight = 12f;
+    public float jumpForce = 850f;
     public float gravityScale = 1.5f;
     public float maxHitPoints = 100f;
     public float hitPoints = 100f;
@@ -19,6 +21,8 @@ public class CharacterController2D : MonoBehaviour
     public float cooldown = 1f; //seconds
     private float lastAttackedAt = -9999f;
     public GameManager gM;
+
+    public Slider healthBar;
 
     AudioSource audioSource;
     public AudioClip scream;
@@ -53,7 +57,11 @@ public class CharacterController2D : MonoBehaviour
         r2d.gravityScale = gravityScale;
         facingRight = t.localScale.x > 0;
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        healthBar = GameObject.FindGameObjectWithTag ("PlayerOneHealthSlider").GetComponent<Slider> ();
 
+        hitPoints = maxHitPoints;
+        healthBar.value = hitPoints;
+        healthBar.maxValue = maxHitPoints;
 
         if (mainCamera)
         {
@@ -67,8 +75,9 @@ public class CharacterController2D : MonoBehaviour
         HPTracker();
         PPTracker();
         WeakAttack();
+
         // Movement controls
-        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && (isGrounded || Mathf.Abs(r2d.velocity.x) > 0.01f))
+        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)))   // && (isGrounded || Mathf.Abs(r2d.velocity.x) > 0.01f)
         {
             moveDirection = Input.GetKey(KeyCode.A) ? -1 : 1;
             animator.SetBool("isWalking", true);
@@ -96,23 +105,22 @@ public class CharacterController2D : MonoBehaviour
                 facingRight = true;
                 t.localScale = new Vector3(Mathf.Abs(t.localScale.x), t.localScale.y, transform.localScale.z);
 
-                
             }
             if (moveDirection < 0 && facingRight)
             {
                 facingRight = false;
                 t.localScale = new Vector3(-Mathf.Abs(t.localScale.x), t.localScale.y, t.localScale.z);
-
             }
         }
 
         // Jumping
         if (Input.GetKeyDown(KeyCode.W) && isGrounded || Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            r2d.velocity = new Vector2(r2d.velocity.x, jumpHeight);
+            r2d.AddForce(Vector2.up * jumpForce);
+            //r2d.velocity = new Vector2(r2d.velocity.x, jumpHeight);
             animator.SetTrigger("isJumping");
+            Stretch();
         }
-
     }
     void HPTracker()
     {
@@ -143,7 +151,21 @@ public class CharacterController2D : MonoBehaviour
             }
         }
     }
-
+    void Stretch()
+    {
+        float strechTime = 0.2f;
+        t.localScale = new Vector3(transform.localScale.x, transform.localScale.y + strechTime, 0);
+        StartCoroutine("UnStretch");
+    }
+    private IEnumerator UnStretch()
+    {
+        float stretchEndTime = Time.realtimeSinceStartup + .5f;
+        while (Time.realtimeSinceStartup < stretchEndTime)
+        {
+            yield return 0;
+        }
+        t.localScale = new Vector3(transform.localScale.x, transform.localScale.y - 0.2f, 0);
+    }
     void FixedUpdate()
     {
         Bounds colliderBounds = mainCollider.bounds;
@@ -187,11 +209,18 @@ public class CharacterController2D : MonoBehaviour
         }
         Time.timeScale = 1;
     }
+    public void SendDamage(float damageValue)
+    {
+        hitPoints -= damageValue;
+        healthBar.value = hitPoints;
+        animator.SetFloat("hit", 1);
+    }
    void OnCollisionEnter2D(Collision2D col)
     {
         //PlayerTwoBullet
         if(col.collider.gameObject.name == "PlayerTwoBullet(Clone)"){
-            hitPoints = hitPoints - 5f;
+            //hitPoints = hitPoints - 5f;
+            SendDamage(5f);
             CameraShake.Shake(0.15f, 0.15f);
             animator.SetTrigger("isHit");
             StartCoroutine("Pause");

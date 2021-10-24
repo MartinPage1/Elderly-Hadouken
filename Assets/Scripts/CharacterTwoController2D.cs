@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterTwoController2D : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class CharacterTwoController2D : MonoBehaviour
     public float cooldown = 1f; //seconds
     private float lastAttackedAt = -9999f;
     public GameManager gM;
+
+    public Slider healthBar;
     
     AudioSource audioSource;
     public AudioClip scream;
@@ -31,7 +34,7 @@ public class CharacterTwoController2D : MonoBehaviour
     bool facingRight = true;
     float moveDirection = 0;
     bool isGrounded = false;
-    bool isJumping = false;
+    //bool isJumping = false;
     Vector3 cameraPos;
     Rigidbody2D r2d;
     CapsuleCollider2D mainCollider;
@@ -51,6 +54,11 @@ public class CharacterTwoController2D : MonoBehaviour
         r2d.gravityScale = gravityScale;
         facingRight = t.localScale.x > 0;
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        healthBar = GameObject.FindGameObjectWithTag ("PlayerTwoHealthSlider").GetComponent<Slider> ();
+
+        //hitPoints = maxHitPoints;
+        healthBar.value = hitPoints;
+        healthBar.maxValue = maxHitPoints;
 
         if (mainCamera)
         {
@@ -64,8 +72,9 @@ public class CharacterTwoController2D : MonoBehaviour
         HPTracker();
         PPTracker();
         WeakAttack();
+
         // Movement controls
-        if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)) && (isGrounded || Mathf.Abs(r2d.velocity.x) > 0.01f))
+        if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)))   // && (isGrounded || Mathf.Abs(r2d.velocity.x) > 0.01f)
         {
             moveDirection = Input.GetKey(KeyCode.LeftArrow) ? -1 : 1;
             animator.SetBool("isWalking", true);
@@ -178,11 +187,18 @@ public class CharacterTwoController2D : MonoBehaviour
         }
         Time.timeScale = 1;
     }
+    public void SendDamage(float damageValue)
+    {
+        hitPoints -= damageValue;
+        healthBar.value = hitPoints;
+        animator.SetFloat("hit", 1);
+    }
        void OnCollisionEnter2D(Collision2D col)
     {
         //PlayerTwoBullet
         if(col.collider.gameObject.name == "PlayerOneBullet(Clone)"){
-            hitPoints = hitPoints - 5f;
+            //hitPoints = hitPoints - 5f;
+            SendDamage(5f);
             CameraShake.Shake(0.15f, 0.15f);
             animator.SetTrigger("isHit");
             StartCoroutine("Pause");

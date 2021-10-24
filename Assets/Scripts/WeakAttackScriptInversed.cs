@@ -19,11 +19,11 @@ public class WeakAttackScriptInversed : MonoBehaviour
          }
    }
    private void OnCollisionEnter2D (Collision2D collision) {
-      if (collision.gameObject.tag == "Something" && isProjectile==true)
+      if (collision.gameObject.tag == "Wall" && isProjectile==true)
       {
          Destroy (gameObject);
       }
-      else if(collision.gameObject.tag == "Something" && isProjectile==false)
+      else if(collision.gameObject.tag == "Wall" && isProjectile==false)
       {
         Vector3 relative = transform.InverseTransformDirection(Vector3.forward);
       }    

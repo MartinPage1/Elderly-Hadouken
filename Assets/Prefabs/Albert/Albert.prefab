@@ -254,14 +254,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84d0a79c503e58d4595624ffb9bfc660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 3.4
+  maxSpeed: 8.4
   jumpHeight: 12.5
+  jumpForce: 550
   gravityScale: 1.5
   maxHitPoints: 100
   hitPoints: 100
   powerPoints: 0
   maxPowerPoints: 100
   mainCamera: {fileID: 0}
+  cooldown: 1
+  gM: {fileID: 0}
+  healthBar: {fileID: 0}
   scream: {fileID: 8300000, guid: e641a9819916f8440ab322ed80ec33fb, type: 3}
   weakShot: {fileID: 2052096767317250992, guid: bba6ddfc66519264888b7721e7b7a738, type: 3}
   weakShot2: {fileID: 7904789224703001698, guid: a287a8ed1994ddb4188be9d5cd98a2b0, type: 3}
@@ -280,7 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4171ccacf7846744afa237d3793a620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 3.4
+  maxSpeed: 8.4
   jumpHeight: 10.5
   gravityScale: 1.5
   maxHitPoints: 100
@@ -288,6 +292,9 @@ MonoBehaviour:
   powerPoints: 0
   maxPowerPoints: 100
   mainCamera: {fileID: 0}
+  cooldown: 1
+  gM: {fileID: 0}
+  healthBar: {fileID: 0}
   scream: {fileID: 8300000, guid: e641a9819916f8440ab322ed80ec33fb, type: 3}
   weakShot: {fileID: 6632126771894863960, guid: a14864077f87c964f9f2bf39241e0877, type: 3}
   weakShot2: {fileID: 1019504460748936631, guid: 17eb55417bda8924580eb1a730dbb216, type: 3}
