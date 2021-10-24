@@ -5,9 +5,10 @@ using UnityEngine.UI;
 
 public class CharacterTwoController2D : MonoBehaviour
 {
-// Move player in 2D space
+    // Move player in 2D space
     public float maxSpeed = 8.4f;
     public float jumpHeight = 12f;
+    public float jumpForce = 550f;
     public float gravityScale = 1.5f;
     public float maxHitPoints = 100f;
     public float hitPoints = 100f;
@@ -34,7 +35,6 @@ public class CharacterTwoController2D : MonoBehaviour
     bool facingRight = true;
     float moveDirection = 0;
     bool isGrounded = false;
-    //bool isJumping = false;
     Vector3 cameraPos;
     Rigidbody2D r2d;
     CapsuleCollider2D mainCollider;
@@ -59,7 +59,8 @@ public class CharacterTwoController2D : MonoBehaviour
         //hitPoints = maxHitPoints;
         healthBar.value = hitPoints;
         healthBar.maxValue = maxHitPoints;
-
+        jumpForce = 550f;
+        maxSpeed = 8.4f;
         if (mainCamera)
         {
             cameraPos = mainCamera.transform.position;
@@ -110,9 +111,11 @@ public class CharacterTwoController2D : MonoBehaviour
 
         // Jumping
         if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded)
-        {
-            r2d.velocity = new Vector2(r2d.velocity.x, jumpHeight);
+        {            
+            r2d.AddForce(Vector2.up * jumpForce);
+            //r2d.velocity = new Vector2(r2d.velocity.x, jumpHeight);
             animator.SetTrigger("isJumping");
+            Stretch();
         }
     }
     void HPTracker()
@@ -143,6 +146,21 @@ public class CharacterTwoController2D : MonoBehaviour
                 lastAttackedAt = Time.time;
             }
         }
+    }    
+    void Stretch()
+    {
+        float strechTime = 0.2f;
+        t.localScale = new Vector3(transform.localScale.x, transform.localScale.y + strechTime, 0);
+        StartCoroutine("UnStretch");
+    }
+    private IEnumerator UnStretch()
+    {
+        float stretchEndTime = Time.realtimeSinceStartup + .5f;
+        while (Time.realtimeSinceStartup < stretchEndTime)
+        {
+            yield return 0;
+        }
+        t.localScale = new Vector3(transform.localScale.x, transform.localScale.y - 0.2f, 0);
     }
 
     void FixedUpdate()

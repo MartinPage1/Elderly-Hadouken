@@ -11,7 +11,7 @@ public class CharacterController2D : MonoBehaviour
     // Move player in 2D space
     public float maxSpeed = 8.4f;
     public float jumpHeight = 12f;
-    public float jumpForce = 850f;
+    public float jumpForce = 550f;
     public float gravityScale = 1.5f;
     public float maxHitPoints = 100f;
     public float hitPoints = 100f;
@@ -62,6 +62,8 @@ public class CharacterController2D : MonoBehaviour
         hitPoints = maxHitPoints;
         healthBar.value = hitPoints;
         healthBar.maxValue = maxHitPoints;
+        jumpForce = 550f;
+        maxSpeed = 8.4f;
 
         if (mainCamera)
         {
