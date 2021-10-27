@@ -98,7 +98,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e641a9819916f8440ab322ed80ec33fb, type: 3}
+  m_audioClip: {fileID: 8300000, guid: bebfbf983d169044cb836885ac558be7, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -264,7 +264,7 @@ MonoBehaviour:
   cooldown: 1
   gM: {fileID: 0}
   healthBar: {fileID: 0}
-  scream: {fileID: 8300000, guid: e641a9819916f8440ab322ed80ec33fb, type: 3}
+  scream: {fileID: 8300000, guid: bebfbf983d169044cb836885ac558be7, type: 3}
   weakShot: {fileID: 5905683640495045693, guid: 11235c5d45665724d80cd84cd285ff10, type: 3}
   weakShot2: {fileID: 4411409215375524095, guid: 5e9e8b63d3860ff418ec12e6d2b9911f, type: 3}
   spriteRenderer: {fileID: 757716171232639983}
@@ -284,6 +284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 8.4
   jumpHeight: 10.5
+  jumpForce: 850
   gravityScale: 1.5
   maxHitPoints: 100
   hitPoints: 100
@@ -293,7 +294,7 @@ MonoBehaviour:
   cooldown: 1
   gM: {fileID: 0}
   healthBar: {fileID: 0}
-  scream: {fileID: 8300000, guid: e641a9819916f8440ab322ed80ec33fb, type: 3}
+  scream: {fileID: 8300000, guid: bebfbf983d169044cb836885ac558be7, type: 3}
   weakShot: {fileID: 5602918920540196892, guid: d7e028fc930c2a04e889c89742506206, type: 3}
   weakShot2: {fileID: 8667826902267226898, guid: a5db198743ecdc74d8139d1834b6604e, type: 3}
   spriteRenderer: {fileID: 0}
