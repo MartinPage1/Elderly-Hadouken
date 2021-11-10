@@ -32,6 +32,7 @@ public class CharacterTwoController2D : MonoBehaviour
 
     private Animator animator;
 
+    bool flash = false;
     bool facingRight = true;
     float moveDirection = 0;
     bool isGrounded = false;
@@ -73,6 +74,10 @@ public class CharacterTwoController2D : MonoBehaviour
         HPTracker();
         PPTracker();
         WeakAttack();
+        if (hitPoints < 20 && !flash){
+            characterFlash();
+            flash = true;
+        }
 
         // Movement controls
         if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)))   // && (isGrounded || Mathf.Abs(r2d.velocity.x) > 0.01f)
@@ -210,6 +215,36 @@ public class CharacterTwoController2D : MonoBehaviour
         hitPoints -= damageValue;
         healthBar.value = hitPoints;
         //animator.SetFloat("hit", 1);
+    }
+    void characterFlash()
+    {
+        StartCoroutine(FlashSprite(GetComponent<SpriteRenderer>(), .2f, 1f, 1, 1));
+    }
+    public IEnumerator FlashSprite(SpriteRenderer renderer, float minAlpha, float maxAlpha, float interval, float duration)
+    {
+        Color colorNow = renderer.color;
+        Color minColor = new Color(renderer.color.r, renderer.color.g, renderer.color.b, minAlpha);
+        Color maxColor = new Color(renderer.color.r, renderer.color.g, renderer.color.b, maxAlpha);
+
+        float currentInterval = 0;
+        while(duration > 0)
+        {
+            float tColor = currentInterval / interval;
+            renderer.color = Color.Lerp(minColor, maxColor, tColor);
+
+            currentInterval += Time.deltaTime;
+            if(currentInterval >= interval)
+            {
+                Color temp = minColor;
+                minColor = maxColor;
+                maxColor = temp;
+                currentInterval = currentInterval - interval;
+            }
+            duration -= Time.deltaTime;
+            yield return null;
+        }
+        renderer.color = colorNow;
+        flash = false;
     }
        void OnCollisionEnter2D(Collision2D col)
     {

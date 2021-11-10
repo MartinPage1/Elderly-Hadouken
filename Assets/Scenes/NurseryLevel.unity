@@ -2992,12 +2992,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerOnePrefab: {fileID: 3110506114557466488, guid: fda6aaa05d80e1a44b4fe3f6bcd1ce9c, type: 3}
   playerTwoPrefab: {fileID: 7784680694310026503, guid: 748fc5987eab48f4c99277a8cc183ff3, type: 3}
-  albertPrefab: {fileID: 0}
-  bettyPrefab: {fileID: 0}
-  archiPrefab: {fileID: 0}
-  gertiePrefab: {fileID: 0}
-  richardPrefab: {fileID: 0}
-  edithPrefab: {fileID: 0}
+  albertPrefab: {fileID: 6547636643702708770, guid: fa22bb61e1d6ab14eade1e973562632d, type: 3}
+  bettyPrefab: {fileID: 7271053122373638391, guid: 9a3a9ca6918a3f24995e4b4e532ef897, type: 3}
+  archiPrefab: {fileID: 7784680694310026503, guid: 748fc5987eab48f4c99277a8cc183ff3, type: 3}
+  gertiePrefab: {fileID: 3110506114557466488, guid: fda6aaa05d80e1a44b4fe3f6bcd1ce9c, type: 3}
+  richardPrefab: {fileID: 757716171232639974, guid: c322398203610a948a28aa82d342d396, type: 3}
+  edithPrefab: {fileID: 290649681750154767, guid: ae229a383554b6b48ac234a9626ba08c, type: 3}
   playerOneHP: {fileID: 1779183498}
   playerTwoHP: {fileID: 428796837}
   playerOnePP: {fileID: 2075396041}
