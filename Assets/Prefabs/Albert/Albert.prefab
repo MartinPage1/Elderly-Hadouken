@@ -224,7 +224,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!70 &6547636643702708793
 CapsuleCollider2D:
@@ -286,6 +286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 8.4
   jumpHeight: 10.5
+  jumpForce: 850
   gravityScale: 1.5
   maxHitPoints: 100
   hitPoints: 100
