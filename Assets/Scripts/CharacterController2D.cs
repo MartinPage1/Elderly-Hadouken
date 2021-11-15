@@ -78,6 +78,10 @@ public class CharacterController2D : MonoBehaviour
         HPTracker();
         PPTracker();
         WeakAttack();
+        if(transform.position.y <= -5)
+            {
+             transform.position = new Vector3(transform.position.x, 6, transform.position.z);
+            }
         if (hitPoints < 20 && !flash){
             characterFlash();
             flash = true;
