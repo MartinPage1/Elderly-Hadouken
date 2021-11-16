@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class CharacterController2D : MonoBehaviour
 {
     // Move player in 2D space
+    public ParticleSystem dust;
     public float maxSpeed = 8.4f;
     public float jumpHeight = 12f;
     public float jumpForce = 550f;
@@ -22,6 +23,7 @@ public class CharacterController2D : MonoBehaviour
     public float cooldown = 1f; //seconds
     private float lastAttackedAt = -9999f;
     public GameManager gM;
+    public Transform firePoint;
     
     public Slider healthBar;
     public PlayerControls playerControls;
@@ -29,6 +31,9 @@ public class CharacterController2D : MonoBehaviour
     public AudioClip scream;
     public GameObject weakShot;
     public GameObject weakShot2;
+    public GameObject superLeft;
+    public GameObject superRight;
+    public GameObject currentPlayerTwo;
 
     public SpriteRenderer spriteRenderer;
     public Sprite newSprite;
@@ -49,6 +54,7 @@ public class CharacterController2D : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
+        dust = GetComponentInChildren<ParticleSystem>();
         t = transform;
         gM = GameObject.Find("GameManager").GetComponent<GameManager>();
         animator = GetComponent<Animator>();
@@ -82,6 +88,11 @@ public class CharacterController2D : MonoBehaviour
         HPTracker();
         PPTracker();
         WeakAttack();
+        currentPlayerTwo = GameObject.FindGameObjectWithTag("Player 2");
+        if (powerPoints == maxPowerPoints)
+        {
+            SuperAttack();
+        }
         if(transform.position.y <= -5)
             {
              transform.position = new Vector3(transform.position.x, 6, transform.position.z);
@@ -96,6 +107,7 @@ public class CharacterController2D : MonoBehaviour
         {
             moveDirection = Input.GetKey(KeyCode.A) ? -1 : 1;
             animator.SetBool("isWalking", true);
+
         }
         else
         {
@@ -118,12 +130,13 @@ public class CharacterController2D : MonoBehaviour
             {
                 facingRight = true;
                 t.localScale = new Vector3(Mathf.Abs(t.localScale.x), t.localScale.y, transform.localScale.z);
-
+                CreateDust();
             }
             if (moveDirection < 0 && facingRight)
             {
                 facingRight = false;
                 t.localScale = new Vector3(-Mathf.Abs(t.localScale.x), t.localScale.y, t.localScale.z);
+                CreateDust();
             }
         }
 
@@ -134,6 +147,7 @@ public class CharacterController2D : MonoBehaviour
             //r2d.velocity = new Vector2(r2d.velocity.x, jumpHeight);
             animator.SetTrigger("isJumping");
             Stretch();
+            CreateDust();
         }
     }
     void HPTracker()
@@ -163,6 +177,39 @@ public class CharacterController2D : MonoBehaviour
                 animator.SetTrigger("isAttacking");
                 lastAttackedAt = Time.time;
             }
+        }
+    }
+    void SuperAttack()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (Time.time > lastAttackedAt + cooldown)
+            {
+                Instantiate(superLeft, transform.position + new Vector3(1f, 0, 0), transform.rotation);
+                animator.SetTrigger("isAttacking");
+                lastAttackedAt = Time.time;
+            }
+        }
+        //Shoot Left
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (Time.time > lastAttackedAt + cooldown)
+            {
+                Instantiate(superRight, transform.position + new Vector3(-1f, 0, 0), transform.rotation);
+                animator.SetTrigger("isAttacking");
+                lastAttackedAt = Time.time;
+            }
+        }
+    }
+    public void getPP(float number)
+    {
+        if (powerPoints < maxPowerPoints)
+        {
+            powerPoints = powerPoints + number;
+        }
+        else if (powerPoints >= maxPowerPoints)
+        {
+            powerPoints = maxPowerPoints;
         }
     }
     void Stretch()
@@ -264,19 +311,17 @@ public class CharacterController2D : MonoBehaviour
         //PlayerTwoBullet
         if(col.collider.gameObject.name == "PlayerTwoBullet(Clone)"){
             //hitPoints = hitPoints - 5f;
+            CharacterTwoController2D opponent = currentPlayerTwo.GetComponent<CharacterTwoController2D>();
+            if (opponent != null)
+            {
+                opponent.getPP(7f);
+            }
             SendDamage(5f);
             CameraShake.Shake(0.15f, 0.15f);
             animator.SetTrigger("isHit");
             StartCoroutine("Pause");
             CameraShake.Shake(0.25f, 0.25f);
-            if (powerPoints < maxPowerPoints)
-            {
-                powerPoints = powerPoints + 7f;
-            }
-            else if (powerPoints >= maxPowerPoints)
-            {
-                powerPoints = maxPowerPoints;
-            }
+            getPP(10f);
            // hitPoints--;
             Destroy (col.collider.gameObject);
             audioSource.PlayOneShot(scream, 0.7F);
@@ -287,5 +332,9 @@ public class CharacterController2D : MonoBehaviour
             Destroy (gameObject);
             gM.PlayerOneDied();
         }
+    }
+    void CreateDust()
+    {
+        dust.Play();
     }
 }

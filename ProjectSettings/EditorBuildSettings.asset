@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/AlphaStart.unity
+    guid: 7e827ac7ce4be894fb286c75516ed6be
+  - enabled: 1
+    path: Assets/Scenes/NurseryLevel.unity
+    guid: 2067b490dca797e4798679111844cf43
+  - enabled: 1
+    path: Assets/Scenes/HospitalLevel.unity
+    guid: 9805eed87efe46a49998e14b84a1077e
   m_configObjects: {}

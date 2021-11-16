@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
@@ -15,6 +16,10 @@ public class GameManager : MonoBehaviour
     public GameObject gertiePrefab;
     public GameObject richardPrefab;
     public GameObject edithPrefab;
+
+    public GameObject currentPlayerOne;
+    public GameObject currentPlayerTwo;
+
     public TMP_Text playerOneHP;
     public TMP_Text playerTwoHP;
     public TMP_Text playerOnePP;
@@ -39,33 +44,56 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        currentPlayerOne = GameObject.FindGameObjectWithTag("Player");
+        currentPlayerTwo = GameObject.FindGameObjectWithTag("Player 2");
         if ((Input.GetKey(KeyCode.R)) && (gameOver==true))
         {
             RestartScene();
         } 
         if (Input.GetKeyDown(KeyCode.Keypad1))
         {
-           Instantiate(albertPrefab, new Vector3(-7.8f, -2.8f, 0), Quaternion.identity); 
+           Instantiate(albertPrefab, new Vector3(-7.8f, -2.8f, 0), Quaternion.identity);
+            Destroy(currentPlayerOne);
+            currentPlayerOne = GameObject.FindGameObjectWithTag("Player");
         } 
         if (Input.GetKeyDown(KeyCode.Keypad2))
         {
-           Instantiate(bettyPrefab, new Vector3(-7.8f, -2.8f, 0), Quaternion.identity); 
+           Instantiate(bettyPrefab, new Vector3(-7.8f, -2.8f, 0), Quaternion.identity);
+            Destroy(currentPlayerOne);
+            currentPlayerOne = GameObject.FindGameObjectWithTag("Player");
         } 
         if (Input.GetKeyDown(KeyCode.Keypad3))
         {
-           Instantiate(archiPrefab, new Vector3(-7.8f, -2.8f, 0), Quaternion.identity); 
+           Instantiate(edithPrefab, new Vector3(-7.8f, -2.8f, 0), Quaternion.identity);
+            Destroy(currentPlayerOne);
+            currentPlayerOne = GameObject.FindGameObjectWithTag("Player");
         } 
         if (Input.GetKeyDown(KeyCode.Keypad4))
         {
-           Instantiate(gertiePrefab, new Vector3(-7.8f, -2.8f, 0), Quaternion.identity); 
+           Instantiate(archiPrefab, new Vector3(8f, -2.8f, 0), Quaternion.identity);
+            Destroy(currentPlayerTwo);
+            currentPlayerTwo = GameObject.FindGameObjectWithTag("Player 2");
         } 
         if (Input.GetKeyDown(KeyCode.Keypad5))
         {
-           Instantiate(richardPrefab, new Vector3(-7.8f, -2.8f, 0), Quaternion.identity); 
+           Instantiate(richardPrefab, new Vector3(8f, -2.8f, 0), Quaternion.identity);
+            Destroy(currentPlayerTwo);
+            currentPlayerTwo = GameObject.FindGameObjectWithTag("Player 2");
         } 
         if (Input.GetKeyDown(KeyCode.Keypad6))
         {
-           Instantiate(edithPrefab, new Vector3(-7.8f, -2.8f, 0), Quaternion.identity); 
+           Instantiate(gertiePrefab, new Vector3(8f, -2.8f, 0), Quaternion.identity);
+            Destroy(currentPlayerTwo);
+            currentPlayerTwo = GameObject.FindGameObjectWithTag("Player 2");
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad7))
+        {
+            SceneManager.LoadScene("HospitalLevel");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Keypad8))
+        {
+            SceneManager.LoadScene("NurseryLevel");
         }
     }
     public void UpdateHealthP1(float health)

@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpeed: 9
-  bouncing: 0
+  bouncing: 1
   isProjectile: 0
 --- !u!82 &4617741087996897074
 AudioSource:

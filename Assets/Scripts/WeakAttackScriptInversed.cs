@@ -11,7 +11,11 @@ public class WeakAttackScriptInversed : MonoBehaviour
 
    void Update()
    {
-      if(bouncing == false){
+        if (transform.position.y <= -5)
+        {
+            transform.position = new Vector3(transform.position.x, 6, transform.position.z);
+        }
+        if (bouncing == false){
          transform.position += new Vector3(-1f, 0.0f, 0.0f) * Time.deltaTime * projectileSpeed;
        }
       if(isProjectile==false){

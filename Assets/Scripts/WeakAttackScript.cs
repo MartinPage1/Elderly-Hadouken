@@ -11,7 +11,11 @@ public class WeakAttackScript : MonoBehaviour
    
    void Update()
    {
-      if(bouncing == false){
+        if (transform.position.y <= -5)
+        {
+            transform.position = new Vector3(transform.position.x, 6, transform.position.z);
+        }
+        if (bouncing == false){
          transform.position += new Vector3(1f, 0.0f, 0.0f) * Time.deltaTime * projectileSpeed;
        }
       if(isProjectile==false){
@@ -20,7 +24,7 @@ public class WeakAttackScript : MonoBehaviour
          }
    }
    private void OnCollisionEnter2D (Collision2D collision) {
-      if ((collision.gameObject.tag == "Wall" || collision.gameObject.tag == "Something") && isProjectile==true)
+        if ((collision.gameObject.tag == "Wall" || collision.gameObject.tag == "Something") && isProjectile==true)
       {
          Destroy (gameObject);
       }

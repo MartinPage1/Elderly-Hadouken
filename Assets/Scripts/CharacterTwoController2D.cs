@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class CharacterTwoController2D : MonoBehaviour
 {
     // Move player in 2D space
+    public ParticleSystem dust;
     public float maxSpeed = 8.4f;
     public float jumpHeight = 12f;
     public float jumpForce = 550f;
@@ -31,10 +32,14 @@ public class CharacterTwoController2D : MonoBehaviour
     private InputAction moveRightAction;
     private InputAction moveLeftAction;
 
+
     AudioSource audioSource;
     public AudioClip scream;
     public GameObject weakShot;
     public GameObject weakShot2;
+    public GameObject superLeft;
+    public GameObject superRight;
+    public GameObject currentPlayerOne;
 
     public SpriteRenderer spriteRenderer;
     public Sprite newSprite;
@@ -55,6 +60,7 @@ public class CharacterTwoController2D : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
+        dust = GetComponentInChildren<ParticleSystem>();
         t = transform;
         gM = GameObject.Find("GameManager").GetComponent<GameManager>();
         animator = GetComponent<Animator>();
@@ -67,6 +73,8 @@ public class CharacterTwoController2D : MonoBehaviour
         facingRight = t.localScale.x > 0;
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         healthBar = GameObject.FindGameObjectWithTag ("PlayerTwoHealthSlider").GetComponent<Slider> ();
+
+        currentPlayerOne = GameObject.FindGameObjectWithTag("Player");
 
         playerInput = GetComponent<PlayerInput>();
         jumpAction = playerInput.actions["Jump"];
@@ -92,6 +100,9 @@ public class CharacterTwoController2D : MonoBehaviour
         HPTracker();
         PPTracker();
         WeakAttack();
+
+        currentPlayerOne = GameObject.FindGameObjectWithTag("Player");
+
         var gamepad = Gamepad.current;
         if (transform.position.y <= -5)
             {
@@ -131,11 +142,13 @@ public class CharacterTwoController2D : MonoBehaviour
             {
                 facingRight = true;
                 t.localScale = new Vector3(Mathf.Abs(t.localScale.x), t.localScale.y, transform.localScale.z);
+                CreateDust();
             }
             if (moveDirection < 0 && facingRight)
             {
                 facingRight = false;
                 t.localScale = new Vector3(-Mathf.Abs(t.localScale.x), t.localScale.y, t.localScale.z);
+                CreateDust();
             }
         }
 
@@ -146,6 +159,7 @@ public class CharacterTwoController2D : MonoBehaviour
             //r2d.velocity = new Vector2(r2d.velocity.x, jumpHeight);
             animator.SetTrigger("isJumping");
             Stretch();
+            CreateDust();
         }
     }
     void HPTracker()
@@ -177,7 +191,40 @@ public class CharacterTwoController2D : MonoBehaviour
                 lastAttackedAt = Time.time;
             }
         }
-    }    
+    }
+    void SuperAttack()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (Time.time > lastAttackedAt + cooldown)
+            {
+                Instantiate(superLeft, transform.position + new Vector3(1f, 0, 0), transform.rotation);
+                animator.SetTrigger("isAttacking");
+                lastAttackedAt = Time.time;
+            }
+        }
+        //Shoot Left
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (Time.time > lastAttackedAt + cooldown)
+            {
+                Instantiate(superRight, transform.position + new Vector3(-1f, 0, 0), transform.rotation);
+                animator.SetTrigger("isAttacking");
+                lastAttackedAt = Time.time;
+            }
+        }
+    }
+    public void getPP(float number)
+    {
+        if (powerPoints < maxPowerPoints)
+        {
+            powerPoints = powerPoints + number;
+        }
+        else if (powerPoints >= maxPowerPoints)
+        {
+            powerPoints = maxPowerPoints;
+        }
+    }
     void Stretch()
     {
         float strechTime = 0.2f;
@@ -284,23 +331,43 @@ public class CharacterTwoController2D : MonoBehaviour
         moveLeftAction.Disable();
         moveRightAction.Disable();
     }
+    public void BettyDamage()
+    {
+        SendDamage(7f);
+        animator.SetTrigger("isHit");
+        StartCoroutine("Pause");
+        CameraShake.Shake(0.25f, 0.25f);
+        if (powerPoints < maxPowerPoints)
+        {
+            powerPoints = powerPoints + 7f;
+        }
+        else if (powerPoints >= maxPowerPoints)
+        {
+            powerPoints = maxPowerPoints;
+        }
+        audioSource.PlayOneShot(scream, 0.7F);
+        if (hitPoints <= 0)
+        {
+            Destroy(gameObject);
+            gM.PlayerTwoDied();
+        }
+    }
     void OnCollisionEnter2D(Collision2D col)
     {
+
         //PlayerTwoBullet
-        if(col.collider.gameObject.name == "PlayerOneBullet(Clone)"){
+        if (col.collider.gameObject.name == "PlayerOneBullet(Clone)"){
             //hitPoints = hitPoints - 5f;
+            CharacterController2D opponent = currentPlayerOne.GetComponent<CharacterController2D>();
+            if (opponent != null)
+            {
+                opponent.getPP(7f);
+            }
             SendDamage(5f);
             CameraShake.Shake(0.15f, 0.15f);
             animator.SetTrigger("isHit");
             StartCoroutine("Pause");
-            if (powerPoints < maxPowerPoints)
-            {
-                powerPoints = powerPoints + 7f;
-            }
-            else if (powerPoints >= maxPowerPoints)
-            {
-                powerPoints = maxPowerPoints;
-            }
+            getPP(10f);
            // hitPoints--;
             Destroy (col.collider.gameObject);
             audioSource.PlayOneShot(scream, 0.7F);
@@ -311,5 +378,9 @@ public class CharacterTwoController2D : MonoBehaviour
             Destroy (gameObject);
             gM.PlayerTwoDied();
         }
+    }
+    void CreateDust()
+    {
+        dust.Play();
     }
 }
