@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -21,9 +22,9 @@ public class CharacterController2D : MonoBehaviour
     public float cooldown = 1f; //seconds
     private float lastAttackedAt = -9999f;
     public GameManager gM;
-
+    
     public Slider healthBar;
-
+    public PlayerControls playerControls;
     AudioSource audioSource;
     public AudioClip scream;
     public GameObject weakShot;
@@ -44,8 +45,9 @@ public class CharacterController2D : MonoBehaviour
     CapsuleCollider2D mainCollider;
     Transform t;
 
+
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         t = transform;
         gM = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -59,6 +61,8 @@ public class CharacterController2D : MonoBehaviour
         facingRight = t.localScale.x > 0;
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         healthBar = GameObject.FindGameObjectWithTag ("PlayerOneHealthSlider").GetComponent<Slider> ();
+
+        playerControls = new PlayerControls();
 
         hitPoints = maxHitPoints;
         healthBar.value = hitPoints;
@@ -88,7 +92,7 @@ public class CharacterController2D : MonoBehaviour
         }
 
         // Movement controls
-        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)))   // && (isGrounded || Mathf.Abs(r2d.velocity.x) > 0.01f)
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))   // && (isGrounded || Mathf.Abs(r2d.velocity.x) > 0.01f)
         {
             moveDirection = Input.GetKey(KeyCode.A) ? -1 : 1;
             animator.SetBool("isWalking", true);
@@ -106,7 +110,7 @@ public class CharacterController2D : MonoBehaviour
             {
                 powerPoints = maxPowerPoints;
             }
-
+            
         // Change facing direction
         if (moveDirection != 0)
         {

@@ -1,7 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
+
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(CapsuleCollider2D))]
 
 public class CharacterTwoController2D : MonoBehaviour
 {
@@ -20,7 +24,13 @@ public class CharacterTwoController2D : MonoBehaviour
     public GameManager gM;
 
     public Slider healthBar;
-    
+
+    private PlayerControls playerControls; 
+    private PlayerInput playerInput;
+    private InputAction jumpAction;
+    private InputAction moveRightAction;
+    private InputAction moveLeftAction;
+
     AudioSource audioSource;
     public AudioClip scream;
     public GameObject weakShot;
@@ -37,12 +47,13 @@ public class CharacterTwoController2D : MonoBehaviour
     float moveDirection = 0;
     bool isGrounded = false;
     Vector3 cameraPos;
+    private Vector2 moveInput;
     Rigidbody2D r2d;
     CapsuleCollider2D mainCollider;
     Transform t;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         t = transform;
         gM = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -57,6 +68,13 @@ public class CharacterTwoController2D : MonoBehaviour
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         healthBar = GameObject.FindGameObjectWithTag ("PlayerTwoHealthSlider").GetComponent<Slider> ();
 
+        playerInput = GetComponent<PlayerInput>();
+        jumpAction = playerInput.actions["Jump"];
+        jumpAction.ReadValue<float>();
+        moveRightAction = playerInput.actions["MoveRight"];
+        moveRightAction.ReadValue<float>();
+        moveLeftAction = playerInput.actions["MoveLeft"];
+        moveLeftAction.ReadValue<float>();
         //hitPoints = maxHitPoints;
         healthBar.value = hitPoints;
         healthBar.maxValue = maxHitPoints;
@@ -73,8 +91,9 @@ public class CharacterTwoController2D : MonoBehaviour
     {
         HPTracker();
         PPTracker();
-        WeakAttack();   
-        if(transform.position.y <= -5)
+        WeakAttack();
+        var gamepad = Gamepad.current;
+        if (transform.position.y <= -5)
             {
              transform.position = new Vector3(transform.position.x, 6, transform.position.z);
             }
@@ -82,11 +101,13 @@ public class CharacterTwoController2D : MonoBehaviour
             characterFlash();
             flash = true;
         }
-
+        //Vector2 move = playerControls.GameplayP2.Move.ReadValue<Vector2>();
         // Movement controls
-        if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)))   // && (isGrounded || Mathf.Abs(r2d.velocity.x) > 0.01f)
+        // moveLeftAction.triggered || moveRightAction.triggered
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || gamepad.dpad.left.isPressed || gamepad.dpad.right.isPressed)   // && (isGrounded || Mathf.Abs(r2d.velocity.x) > 0.01f)
         {
             moveDirection = Input.GetKey(KeyCode.LeftArrow) ? -1 : 1;
+            moveDirection = gamepad.dpad.left.isPressed ? -1 : 1;
             animator.SetBool("isWalking", true);
         }
         else
@@ -119,7 +140,7 @@ public class CharacterTwoController2D : MonoBehaviour
         }
 
         // Jumping
-        if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded || jumpAction.triggered && isGrounded)
         {            
             r2d.AddForce(Vector2.up * jumpForce);
             //r2d.velocity = new Vector2(r2d.velocity.x, jumpHeight);
@@ -137,8 +158,9 @@ public class CharacterTwoController2D : MonoBehaviour
     }
     void WeakAttack()
     {
+        var gamepad = Gamepad.current;
         //Shoot Right
-        if(Input.GetKeyDown(KeyCode.Period))
+        if (Input.GetKeyDown(KeyCode.Period) || gamepad.rightShoulder.wasPressedThisFrame || gamepad.buttonEast.wasPressedThisFrame)
         {
             if (Time.time > lastAttackedAt + cooldown){
                 Instantiate(weakShot, transform.position + new Vector3(1f, 0, 0), transform.rotation);
@@ -147,7 +169,7 @@ public class CharacterTwoController2D : MonoBehaviour
             }
         }
         //Shoot Left
-        else if(Input.GetKeyDown(KeyCode.Comma))
+        else if(Input.GetKeyDown(KeyCode.Comma) || gamepad.leftShoulder.wasPressedThisFrame || gamepad.buttonWest.wasPressedThisFrame)
         {
             if (Time.time > lastAttackedAt + cooldown){
                 Instantiate(weakShot2, transform.position + new Vector3(-1f, 0, 0), transform.rotation);
@@ -250,7 +272,19 @@ public class CharacterTwoController2D : MonoBehaviour
         renderer.color = colorNow;
         flash = false;
     }
-       void OnCollisionEnter2D(Collision2D col)
+    private void OnEnable()
+    {
+        jumpAction.Enable();
+        moveLeftAction.Enable();
+        moveRightAction.Enable();
+    }
+    private void OnDisable()
+    {
+        jumpAction.Disable();
+        moveLeftAction.Disable();
+        moveRightAction.Disable();
+    }
+    void OnCollisionEnter2D(Collision2D col)
     {
         //PlayerTwoBullet
         if(col.collider.gameObject.name == "PlayerOneBullet(Clone)"){
