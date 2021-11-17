@@ -22,6 +22,7 @@ public class CharacterController2D : MonoBehaviour
     public Camera mainCamera;
     public float cooldown = 1f; //seconds
     private float lastAttackedAt = -9999f;
+    private float lastDamagedAt = -9999f;
     public GameManager gM;
     public Transform firePoint;
     
@@ -185,7 +186,7 @@ public class CharacterController2D : MonoBehaviour
         {
             if (Time.time > lastAttackedAt + cooldown)
             {
-                Instantiate(superLeft, transform.position + new Vector3(1f, 0, 0), transform.rotation);
+                Instantiate(superLeft, transform.position + new Vector3(-1f, 0, 0), transform.rotation);
                 animator.SetTrigger("isAttacking");
                 lastAttackedAt = Time.time;
             }
@@ -195,7 +196,7 @@ public class CharacterController2D : MonoBehaviour
         {
             if (Time.time > lastAttackedAt + cooldown)
             {
-                Instantiate(superRight, transform.position + new Vector3(-1f, 0, 0), transform.rotation);
+                Instantiate(superRight, transform.position + new Vector3(1f, 0, 0), transform.rotation);
                 animator.SetTrigger("isAttacking");
                 lastAttackedAt = Time.time;
             }
@@ -306,10 +307,57 @@ public class CharacterController2D : MonoBehaviour
         renderer.color = colorNow;
         flash = false;
     }
-   void OnCollisionEnter2D(Collision2D col)
+    public void EdithDamage()
+    {
+        if (Time.time > lastDamagedAt + 1f)
+        {
+            SendDamage(8f);
+            //animator.SetTrigger("isHit");
+            //StartCoroutine("Pause");
+            CameraShake.Shake(0.25f, 0.25f);
+            if (powerPoints < maxPowerPoints)
+            {
+                powerPoints = powerPoints + 7f;
+            }
+            else if (powerPoints >= maxPowerPoints)
+            {
+                powerPoints = maxPowerPoints;
+            }
+            audioSource.PlayOneShot(scream, 0.7F);
+            if (hitPoints <= 0)
+            {
+                Destroy(gameObject);
+                gM.PlayerTwoDied();
+            }
+            lastDamagedAt = Time.time;
+        }
+    }
+    public void BettyDamage()
+    {
+        SendDamage(7f);
+        animator.SetTrigger("isHit");
+        StartCoroutine("Pause");
+        CameraShake.Shake(0.25f, 0.25f);
+        if (powerPoints < maxPowerPoints)
+        {
+            powerPoints = powerPoints + 7f;
+        }
+        else if (powerPoints >= maxPowerPoints)
+        {
+            powerPoints = maxPowerPoints;
+        }
+        audioSource.PlayOneShot(scream, 0.7F);
+        if (hitPoints <= 0)
+        {
+            Destroy(gameObject);
+            gM.PlayerTwoDied();
+        }
+    }
+    void OnCollisionEnter2D(Collision2D col)
     {
         //PlayerTwoBullet
-        if(col.collider.gameObject.name == "PlayerTwoBullet(Clone)"){
+        if (col.collider.gameObject.name == "PlayerTwoBullet(Clone)" || col.collider.gameObject.name == "AlbertSuperP2(Clone)")
+        {
             //hitPoints = hitPoints - 5f;
             CharacterTwoController2D opponent = currentPlayerTwo.GetComponent<CharacterTwoController2D>();
             if (opponent != null)
@@ -320,7 +368,6 @@ public class CharacterController2D : MonoBehaviour
             CameraShake.Shake(0.15f, 0.15f);
             animator.SetTrigger("isHit");
             StartCoroutine("Pause");
-            CameraShake.Shake(0.25f, 0.25f);
             getPP(10f);
            // hitPoints--;
             Destroy (col.collider.gameObject);

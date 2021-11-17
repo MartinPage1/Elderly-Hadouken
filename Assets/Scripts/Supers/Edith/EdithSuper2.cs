@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EdithSuper1 : MonoBehaviour
+public class EdithSuper2 : MonoBehaviour
 {
     //Right
     public float projectileSpeed = 9f;
@@ -14,7 +14,7 @@ public class EdithSuper1 : MonoBehaviour
     {
         stuck = false;
         StartCoroutine("DestroySelf", 5f);
-        transform.Rotate(0.0f, 0.0f, -90.0f, Space.World);
+        transform.Rotate(0.0f, 0.0f, 90.0f, Space.World);
     }
 
     void Update()
@@ -22,7 +22,7 @@ public class EdithSuper1 : MonoBehaviour
         currentPlayerTwo = GameObject.FindGameObjectWithTag("Player 2");
         if (stuck == false)
         {
-            transform.position += new Vector3(1f, 0.0f, 0.0f) * Time.deltaTime * projectileSpeed;
+            transform.position += new Vector3(-1f, 0.0f, 0.0f) * Time.deltaTime * projectileSpeed;
         }
         if (stuck == true)
         {

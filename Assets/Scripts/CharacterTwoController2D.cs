@@ -22,6 +22,7 @@ public class CharacterTwoController2D : MonoBehaviour
     public Camera mainCamera;
     public float cooldown = 1f; //seconds
     private float lastAttackedAt = -9999f;
+    private float lastDamagedAt = -9999f;
     public GameManager gM;
 
     public Slider healthBar;
@@ -331,6 +332,31 @@ public class CharacterTwoController2D : MonoBehaviour
         moveLeftAction.Disable();
         moveRightAction.Disable();
     }
+    public void EdithDamage()
+    {
+        if (Time.time > lastDamagedAt + 1f)
+        {
+            SendDamage(8f);
+            //animator.SetTrigger("isHit");
+            //StartCoroutine("Pause");
+            CameraShake.Shake(0.25f, 0.25f); 
+            if (powerPoints < maxPowerPoints)
+            {
+                powerPoints = powerPoints + 7f;
+            }
+            else if (powerPoints >= maxPowerPoints)
+            {
+                powerPoints = maxPowerPoints;
+            }
+            audioSource.PlayOneShot(scream, 0.7F);
+            if (hitPoints <= 0)
+            {
+                Destroy(gameObject);
+                gM.PlayerTwoDied();
+            }
+            lastDamagedAt = Time.time;
+        }
+    }
     public void BettyDamage()
     {
         SendDamage(7f);
@@ -354,9 +380,8 @@ public class CharacterTwoController2D : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D col)
     {
-
         //PlayerTwoBullet
-        if (col.collider.gameObject.name == "PlayerOneBullet(Clone)"){
+        if (col.collider.gameObject.name == "PlayerOneBullet(Clone)" || col.collider.gameObject.name == "AlbertSuperP1(Clone)"){
             //hitPoints = hitPoints - 5f;
             CharacterController2D opponent = currentPlayerOne.GetComponent<CharacterController2D>();
             if (opponent != null)

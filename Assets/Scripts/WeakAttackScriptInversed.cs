@@ -18,10 +18,11 @@ public class WeakAttackScriptInversed : MonoBehaviour
         if (bouncing == false){
          transform.position += new Vector3(-1f, 0.0f, 0.0f) * Time.deltaTime * projectileSpeed;
        }
-      if(isProjectile==false){
-         Destroy(gameObject, 5);
+      if (isProjectile==false)
+        {
+         Destroy(gameObject, 5f);
          StartCoroutine("DestroySelf");
-         }
+        }
    }
    private void OnCollisionEnter2D (Collision2D collision) {
       if (collision.gameObject.tag == "Wall" && isProjectile==true)

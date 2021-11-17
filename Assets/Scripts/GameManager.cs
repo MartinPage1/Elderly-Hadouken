@@ -20,6 +20,11 @@ public class GameManager : MonoBehaviour
     public GameObject currentPlayerOne;
     public GameObject currentPlayerTwo;
 
+    public GameObject albertSuperP1;
+    public GameObject albertSuperP2;
+    public GameObject archieSuperP1;
+    public GameObject archieSuperP2;
+
     public TMP_Text playerOneHP;
     public TMP_Text playerTwoHP;
     public TMP_Text playerOnePP;
@@ -95,6 +100,14 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene("NurseryLevel");
         }
+    }
+    public void AlbertsAttackP1()
+    {
+        Instantiate(albertSuperP1, new Vector3(Random.Range(-4f, 4f), 6f, 0), Quaternion.identity);
+    }
+    public void AlbertsAttackP2()
+    {
+        Instantiate(albertSuperP2, new Vector3(Random.Range(-4f, 4f), 6f, 0), Quaternion.identity);
     }
     public void UpdateHealthP1(float health)
     {
