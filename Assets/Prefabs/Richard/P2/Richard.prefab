@@ -270,8 +270,8 @@ MonoBehaviour:
   scream: {fileID: 8300000, guid: bebfbf983d169044cb836885ac558be7, type: 3}
   weakShot: {fileID: 5602918920540196892, guid: d7e028fc930c2a04e889c89742506206, type: 3}
   weakShot2: {fileID: 8667826902267226898, guid: a5db198743ecdc74d8139d1834b6604e, type: 3}
-  superLeft: {fileID: 0}
-  superRight: {fileID: 0}
+  superLeft: {fileID: 7242106524075987165, guid: 9c24b6cde3c849748a8336b7ef321330, type: 3}
+  superRight: {fileID: 6217064769670736404, guid: c2842ec4ea5b53f4d903b00223958bd8, type: 3}
   currentPlayerOne: {fileID: 0}
   spriteRenderer: {fileID: 0}
   newSprite: {fileID: 0}

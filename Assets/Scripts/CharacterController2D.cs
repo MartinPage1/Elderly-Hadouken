@@ -400,6 +400,21 @@ public class CharacterController2D : MonoBehaviour
             //ChangeSprite();
         }
         if (col.collider.gameObject.tag == "BigDentureTwo")
+        {
+            CharacterTwoController2D opponent = currentPlayerTwo.GetComponent<CharacterTwoController2D>();
+            if (opponent != null)
+            {
+                opponent.getPP(7f);
+            }
+            SendDamage(6f);
+            CameraShake.Shake(0.15f, 0.15f);
+            animator.SetTrigger("isHit");
+            StartCoroutine("Pause");
+            //getPP(10f);
+            // hitPoints--;
+            //Destroy(col.collider.gameObject);
+            audioSource.PlayOneShot(scream, 0.7F);
+        }
         if (hitPoints <= 0)
         {
             Destroy (gameObject);
