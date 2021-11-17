@@ -5097,7 +5097,7 @@ MonoBehaviour:
   gravityScale: 1.5
   maxHitPoints: 100
   hitPoints: 100
-  powerPoints: 0
+  powerPoints: 100
   maxPowerPoints: 100
   mainCamera: {fileID: 0}
   cooldown: 1

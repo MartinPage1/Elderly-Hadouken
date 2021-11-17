@@ -3371,6 +3371,14 @@ MonoBehaviour:
   edithPrefab: {fileID: 290649681750154767, guid: ae229a383554b6b48ac234a9626ba08c, type: 3}
   currentPlayerOne: {fileID: 0}
   currentPlayerTwo: {fileID: 0}
+  albertSuperP1: {fileID: 9041250600926563598, guid: 39d91c2a28d34b0449de7ae5af446a1d, type: 3}
+  albertSuperP2: {fileID: 0}
+  archieSuperBirdOneP1: {fileID: 0}
+  archieSuperBirdTwoP1: {fileID: 0}
+  archieSuperBirdThreeP1: {fileID: 0}
+  archieSuperBirdOneP2: {fileID: 3021259574898251199, guid: 4bc55c85b86816840958a38d7e503dcd, type: 3}
+  archieSuperBirdTwoP2: {fileID: 6192811255384612111, guid: 227c43de27afe4544a1b00c13f78a139, type: 3}
+  archieSuperBirdThreeP2: {fileID: 1319024315658942211, guid: bc4ccb7aa5bdfc04a9de286ba9fc15c6, type: 3}
   playerOneHP: {fileID: 1779183498}
   playerTwoHP: {fileID: 428796837}
   playerOnePP: {fileID: 2075396041}
