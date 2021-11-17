@@ -22,8 +22,12 @@ public class GameManager : MonoBehaviour
 
     public GameObject albertSuperP1;
     public GameObject albertSuperP2;
-    public GameObject archieSuperP1;
-    public GameObject archieSuperP2;
+    public GameObject archieSuperBirdOneP1;
+    public GameObject archieSuperBirdTwoP1;
+    public GameObject archieSuperBirdThreeP1;
+    public GameObject archieSuperBirdOneP2;
+    public GameObject archieSuperBirdTwoP2;
+    public GameObject archieSuperBirdThreeP2;
 
     public TMP_Text playerOneHP;
     public TMP_Text playerTwoHP;
@@ -108,6 +112,16 @@ public class GameManager : MonoBehaviour
     public void AlbertsAttackP2()
     {
         Instantiate(albertSuperP2, new Vector3(Random.Range(-4f, 4f), 6f, 0), Quaternion.identity);
+    }
+    public void ArchieAttackP1()
+    {
+        Instantiate(archieSuperBirdOneP1, new Vector3(Random.Range(-4f, 4f), 6f, 0), Quaternion.identity);
+    }
+    public void ArchieAttackP2()
+    {
+        Instantiate(archieSuperBirdOneP2, new Vector3(Random.Range(-4f, 4f), 6f, 0), Quaternion.identity);
+        Instantiate(archieSuperBirdTwoP2, new Vector3(Random.Range(-4f, 4f), 6f, 0), Quaternion.identity);
+        Instantiate(archieSuperBirdThreeP2, new Vector3(Random.Range(-4f, 4f), 6f, 0), Quaternion.identity);
     }
     public void UpdateHealthP1(float health)
     {

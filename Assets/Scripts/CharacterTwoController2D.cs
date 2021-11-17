@@ -101,7 +101,10 @@ public class CharacterTwoController2D : MonoBehaviour
         HPTracker();
         PPTracker();
         WeakAttack();
-
+        if (powerPoints == maxPowerPoints)
+        {
+            SuperAttack();
+        }
         currentPlayerOne = GameObject.FindGameObjectWithTag("Player");
 
         var gamepad = Gamepad.current;
@@ -195,7 +198,8 @@ public class CharacterTwoController2D : MonoBehaviour
     }
     void SuperAttack()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        var gamepad = Gamepad.current;
+        if (gamepad.rightTrigger.wasPressedThisFrame)
         {
             if (Time.time > lastAttackedAt + cooldown)
             {
@@ -205,7 +209,7 @@ public class CharacterTwoController2D : MonoBehaviour
             }
         }
         //Shoot Left
-        else if (Input.GetKeyDown(KeyCode.R))
+        else if (gamepad.leftTrigger.wasPressedThisFrame)
         {
             if (Time.time > lastAttackedAt + cooldown)
             {
@@ -331,6 +335,31 @@ public class CharacterTwoController2D : MonoBehaviour
         jumpAction.Disable();
         moveLeftAction.Disable();
         moveRightAction.Disable();
+    }
+    public void ArchieDamage()
+    {
+        if (Time.time > lastDamagedAt + 1f)
+        {
+            SendDamage(4f);
+            animator.SetTrigger("isHit");
+            //StartCoroutine("Pause");
+            CameraShake.Shake(0.25f, 0.25f);
+            if (powerPoints < maxPowerPoints)
+            {
+                powerPoints = powerPoints + 7f;
+            }
+            else if (powerPoints >= maxPowerPoints)
+            {
+                powerPoints = maxPowerPoints;
+            }
+            audioSource.PlayOneShot(scream, 0.7F);
+            if (hitPoints <= 0)
+            {
+                Destroy(gameObject);
+                gM.PlayerTwoDied();
+            }
+            lastDamagedAt = Time.time;
+        }
     }
     public void EdithDamage()
     {

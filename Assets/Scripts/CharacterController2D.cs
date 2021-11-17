@@ -307,6 +307,31 @@ public class CharacterController2D : MonoBehaviour
         renderer.color = colorNow;
         flash = false;
     }
+    public void ArchieDamage()
+    {
+        if (Time.time > lastDamagedAt + .5f)
+        {
+            SendDamage(3f);
+            animator.SetTrigger("isHit");
+            //StartCoroutine("Pause");
+            CameraShake.Shake(0.25f, 0.25f);
+            if (powerPoints < maxPowerPoints)
+            {
+                powerPoints = powerPoints + 7f;
+            }
+            else if (powerPoints >= maxPowerPoints)
+            {
+                powerPoints = maxPowerPoints;
+            }
+            audioSource.PlayOneShot(scream, 0.7F);
+            if (hitPoints <= 0)
+            {
+                Destroy(gameObject);
+                gM.PlayerTwoDied();
+            }
+            lastDamagedAt = Time.time;
+        }
+    }
     public void EdithDamage()
     {
         if (Time.time > lastDamagedAt + 1f)
@@ -374,6 +399,7 @@ public class CharacterController2D : MonoBehaviour
             audioSource.PlayOneShot(scream, 0.7F);
             //ChangeSprite();
         }
+        if (col.collider.gameObject.tag == "BigDentureTwo")
         if (hitPoints <= 0)
         {
             Destroy (gameObject);

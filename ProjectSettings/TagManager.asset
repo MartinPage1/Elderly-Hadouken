@@ -12,6 +12,8 @@ TagManager:
   - Floor
   - PlayerOneHealthSlider
   - PlayerTwoHealthSlider
+  - BigDentureOne
+  - BigDentureTwo
   layers:
   - Default
   - TransparentFX
