@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7242106524075987159}
   - component: {fileID: 7242106524075987152}
   - component: {fileID: 7242106524075987153}
+  - component: {fileID: 4130900559384058892}
   - component: {fileID: 7242106524075987154}
   - component: {fileID: 7242106524075987155}
   - component: {fileID: 7242106524075987164}
@@ -102,6 +103,18 @@ MonoBehaviour:
   projectileSpeed: 9
   bouncing: 0
   isProjectile: 0
+--- !u!114 &4130900559384058892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7242106524075987165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edc0f4edb6a1c3646ab28426c9553654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &7242106524075987154
 AudioSource:
   m_ObjectHideFlags: 0

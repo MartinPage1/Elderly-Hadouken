@@ -25,7 +25,8 @@ public class CharacterController2D : MonoBehaviour
     private float lastDamagedAt = -9999f;
     public GameManager gM;
     public Transform firePoint;
-    
+    bool grabbed = false;
+
     public Slider healthBar;
     public PlayerControls playerControls;
     AudioSource audioSource;
@@ -89,6 +90,15 @@ public class CharacterController2D : MonoBehaviour
         HPTracker();
         PPTracker();
         WeakAttack();
+        if (hitPoints <= 0)
+        {
+            Destroy(gameObject);
+            gM.PlayerOneDied();
+        }
+        if (grabbed == true)
+        {
+            animator.SetTrigger("isHit");
+        }
         currentPlayerTwo = GameObject.FindGameObjectWithTag("Player 2");
         if (powerPoints == maxPowerPoints)
         {
@@ -104,11 +114,10 @@ public class CharacterController2D : MonoBehaviour
         }
 
         // Movement controls
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))   // && (isGrounded || Mathf.Abs(r2d.velocity.x) > 0.01f)
+        if (Input.GetKey(KeyCode.A) && grabbed == false || Input.GetKey(KeyCode.D) && grabbed == false)   // && (isGrounded || Mathf.Abs(r2d.velocity.x) > 0.01f)
         {
             moveDirection = Input.GetKey(KeyCode.A) ? -1 : 1;
             animator.SetBool("isWalking", true);
-
         }
         else
         {
@@ -327,7 +336,7 @@ public class CharacterController2D : MonoBehaviour
             if (hitPoints <= 0)
             {
                 Destroy(gameObject);
-                gM.PlayerTwoDied();
+                gM.PlayerOneDied();
             }
             lastDamagedAt = Time.time;
         }
@@ -352,16 +361,16 @@ public class CharacterController2D : MonoBehaviour
             if (hitPoints <= 0)
             {
                 Destroy(gameObject);
-                gM.PlayerTwoDied();
+                gM.PlayerOneDied();
             }
             lastDamagedAt = Time.time;
         }
     }
     public void BettyDamage()
     {
-        SendDamage(7f);
+        SendDamage(6f);
         animator.SetTrigger("isHit");
-        StartCoroutine("Pause");
+        //StartCoroutine("Pause");
         CameraShake.Shake(0.25f, 0.25f);
         if (powerPoints < maxPowerPoints)
         {
@@ -375,7 +384,33 @@ public class CharacterController2D : MonoBehaviour
         if (hitPoints <= 0)
         {
             Destroy(gameObject);
-            gM.PlayerTwoDied();
+            gM.PlayerOneDied();
+        }
+    }
+    public void GertieDamage()
+    {
+        if (Time.time > lastDamagedAt + 1f)
+        {
+            grabbed = true;
+            SendDamage(5f);
+            //animator.SetTrigger("isHit");
+            //StartCoroutine("Pause");
+            CameraShake.Shake(0.25f, 0.25f);
+            if (powerPoints < maxPowerPoints)
+            {
+                powerPoints = powerPoints + 7f;
+            }
+            else if (powerPoints >= maxPowerPoints)
+            {
+                powerPoints = maxPowerPoints;
+            }
+            audioSource.PlayOneShot(scream, 0.7F);
+            if (hitPoints <= 0)
+            {
+                Destroy(gameObject);
+                gM.PlayerOneDied();
+            }
+            lastDamagedAt = Time.time;
         }
     }
     void OnCollisionEnter2D(Collision2D col)
@@ -383,7 +418,6 @@ public class CharacterController2D : MonoBehaviour
         //PlayerTwoBullet
         if (col.collider.gameObject.name == "PlayerTwoBullet(Clone)" || col.collider.gameObject.name == "AlbertSuperP2(Clone)")
         {
-            //hitPoints = hitPoints - 5f;
             CharacterTwoController2D opponent = currentPlayerTwo.GetComponent<CharacterTwoController2D>();
             if (opponent != null)
             {
@@ -397,29 +431,49 @@ public class CharacterController2D : MonoBehaviour
            // hitPoints--;
             Destroy (col.collider.gameObject);
             audioSource.PlayOneShot(scream, 0.7F);
-            //ChangeSprite();
+            if (hitPoints <= 0)
+            {
+                Destroy(gameObject);
+                gM.PlayerOneDied();
+            }
         }
         if (col.collider.gameObject.tag == "BigDentureTwo")
         {
-            CharacterTwoController2D opponent = currentPlayerTwo.GetComponent<CharacterTwoController2D>();
-            if (opponent != null)
+            if (Time.time > lastDamagedAt)
             {
-                opponent.getPP(7f);
+                CharacterTwoController2D opponent = currentPlayerTwo.GetComponent<CharacterTwoController2D>();
+                grabbed = true;
+                transform.position += new Vector3(Random.Range(-1f, 1f), 0.0f, 0.0f) * Time.deltaTime * maxSpeed;
+
+                if (opponent != null)
+                {
+                    opponent.getPP(7f);
+                }
+                SendDamage(6f);
+                CameraShake.Shake(0.15f, 0.15f);
+                animator.SetTrigger("isHit");
+                //StartCoroutine("Pause");
+                audioSource.PlayOneShot(scream, 0.7F);
+                lastDamagedAt = Time.time;
             }
-            SendDamage(6f);
-            CameraShake.Shake(0.15f, 0.15f);
-            animator.SetTrigger("isHit");
-            StartCoroutine("Pause");
-            //getPP(10f);
-            // hitPoints--;
-            //Destroy(col.collider.gameObject);
-            audioSource.PlayOneShot(scream, 0.7F);
+            if (hitPoints <= 0)
+            {
+                Destroy(gameObject);
+                gM.PlayerOneDied();
+            }
+
         }
-        if (hitPoints <= 0)
+    }
+    public void GrabToggle()
+    {
+        if (grabbed == true)
         {
-            Destroy (gameObject);
-            gM.PlayerOneDied();
+            grabbed = false;
         }
+        //if (grabbed == false)
+       // {
+        //    grabbed = true;
+       // }
     }
     void CreateDust()
     {

@@ -101,6 +101,11 @@ public class CharacterTwoController2D : MonoBehaviour
         HPTracker();
         PPTracker();
         WeakAttack();
+        if (hitPoints <= 0)
+        {
+            Destroy(gameObject);
+            gM.PlayerTwoDied();
+        }
         if (powerPoints == maxPowerPoints)
         {
             SuperAttack();
@@ -409,7 +414,7 @@ public class CharacterTwoController2D : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D col)
     {
-        //PlayerTwoBullet
+        //PlayerOneBullet
         if (col.collider.gameObject.name == "PlayerOneBullet(Clone)" || col.collider.gameObject.name == "AlbertSuperP1(Clone)"){
             //hitPoints = hitPoints - 5f;
             CharacterController2D opponent = currentPlayerOne.GetComponent<CharacterController2D>();

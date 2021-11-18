@@ -5065,7 +5065,7 @@ MonoBehaviour:
   gravityScale: 1.5
   maxHitPoints: 100
   hitPoints: 100
-  powerPoints: 0
+  powerPoints: 100
   maxPowerPoints: 100
   mainCamera: {fileID: 0}
   cooldown: 1
@@ -5074,8 +5074,8 @@ MonoBehaviour:
   scream: {fileID: 8300000, guid: 1bc58c304b444e54ba13a61c14d03f0f, type: 3}
   weakShot: {fileID: 6867621025791665927, guid: 31c75ca63fb0f124a881ed7a44523d51, type: 3}
   weakShot2: {fileID: 8679509155371715610, guid: 9af01b2124160c745957f0c2c7f7e091, type: 3}
-  superLeft: {fileID: 0}
-  superRight: {fileID: 0}
+  superLeft: {fileID: 5188307842857701691, guid: 339a427b7b0b9704bb591739c9c86433, type: 3}
+  superRight: {fileID: 1840031573483198731, guid: fe87b9b8a7aa8e840a1409ca1343a662, type: 3}
   currentPlayerOne: {fileID: 0}
   spriteRenderer: {fileID: 5523231041774966160}
   newSprite: {fileID: 0}

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6217064769670736405}
   - component: {fileID: 6401578571395715045}
   - component: {fileID: 5629223011851100592}
+  - component: {fileID: 7454573378676024851}
   m_Layer: 0
   m_Name: BigDentureTwo
   m_TagString: BigDentureTwo
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4b82576e2c2258347b2d976b1e1f5f39, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1.63, y: 1.32}
@@ -341,3 +342,15 @@ MonoBehaviour:
   projectileSpeed: 9
   bouncing: 0
   isProjectile: 0
+--- !u!114 &7454573378676024851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6217064769670736404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edc0f4edb6a1c3646ab28426c9553654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
