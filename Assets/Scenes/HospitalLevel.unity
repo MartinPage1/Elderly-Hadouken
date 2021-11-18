@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &62061944 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2725437988611557723, guid: 20c7c759b8818db4a8206255182d8a39, type: 3}
+  m_PrefabInstance: {fileID: 454386096}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &129143421
 GameObject:
   m_ObjectHideFlags: 0
@@ -4728,9 +4733,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 7413695387535568996, guid: d2df1ea0077000f4d9671f76682f42d4, type: 3}
+      propertyPath: fsm.preprocessed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7413695387535568996, guid: d2df1ea0077000f4d9671f76682f42d4, type: 3}
       propertyPath: fsm.states.Array.data[1].actionData.fsmOwnerDefaultParams.Array.data[0].gameObject.value
       value: 
-      objectReference: {fileID: 7413695385729509212}
+      objectReference: {fileID: 62061944}
     - target: {fileID: 7413695387535568997, guid: d2df1ea0077000f4d9671f76682f42d4, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -4829,8 +4838,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2df1ea0077000f4d9671f76682f42d4, type: 3}
---- !u!1 &7413695385729509212 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7413695387535568999, guid: d2df1ea0077000f4d9671f76682f42d4, type: 3}
-  m_PrefabInstance: {fileID: 7413695385729509211}
-  m_PrefabAsset: {fileID: 0}
