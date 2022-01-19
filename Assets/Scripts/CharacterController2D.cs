@@ -108,6 +108,14 @@ public class CharacterController2D : MonoBehaviour
             {
              transform.position = new Vector3(transform.position.x, 6, transform.position.z);
             }
+        if (transform.position.x <= -8.99f)
+        {
+            transform.position = new Vector3(-8.99f, transform.position.y, transform.position.z);
+        }
+        if (transform.position.x >= 9.1)
+        {
+            transform.position = new Vector3(9, transform.position.y, transform.position.z);
+        }
         if (hitPoints < 20 && !flash){
             characterFlash();
             flash = true;
@@ -151,7 +159,7 @@ public class CharacterController2D : MonoBehaviour
         }
 
         // Jumping
-        if (Input.GetKeyDown(KeyCode.W) && isGrounded || Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.W) && isGrounded && grabbed == false || Input.GetKeyDown(KeyCode.Space) && isGrounded && grabbed == false)
         {
             r2d.AddForce(Vector2.up * jumpForce);
             //r2d.velocity = new Vector2(r2d.velocity.x, jumpHeight);
@@ -371,7 +379,7 @@ public class CharacterController2D : MonoBehaviour
         SendDamage(6f);
         animator.SetTrigger("isHit");
         //StartCoroutine("Pause");
-        CameraShake.Shake(0.25f, 0.25f);
+        //CameraShake.Shake(0.25f, 0.25f);
         if (powerPoints < maxPowerPoints)
         {
             powerPoints = powerPoints + 7f;

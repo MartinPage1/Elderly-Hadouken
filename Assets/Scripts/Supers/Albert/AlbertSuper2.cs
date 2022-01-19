@@ -12,7 +12,7 @@ public class AlbertSuper2 : MonoBehaviour
     {
         mytarget = GameObject.FindGameObjectWithTag("Player");
         targetPos = mytarget.transform.position;
-        StartCoroutine("DestroySelf", 5f);
+        StartCoroutine("DestroySelf", 3f);
     }
 
     void Update()

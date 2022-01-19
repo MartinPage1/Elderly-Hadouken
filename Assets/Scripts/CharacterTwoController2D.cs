@@ -24,6 +24,7 @@ public class CharacterTwoController2D : MonoBehaviour
     private float lastAttackedAt = -9999f;
     private float lastDamagedAt = -9999f;
     public GameManager gM;
+    bool grabbed = false;
 
     public Slider healthBar;
 
@@ -106,6 +107,10 @@ public class CharacterTwoController2D : MonoBehaviour
             Destroy(gameObject);
             gM.PlayerTwoDied();
         }
+        if (grabbed == true)
+        {
+            animator.SetTrigger("isHit");
+        }
         if (powerPoints == maxPowerPoints)
         {
             SuperAttack();
@@ -117,6 +122,14 @@ public class CharacterTwoController2D : MonoBehaviour
             {
              transform.position = new Vector3(transform.position.x, 6, transform.position.z);
             }
+        if (transform.position.x <= -8.99f)
+        {
+            transform.position = new Vector3(-8.99f, transform.position.y, transform.position.z);
+        }
+        if (transform.position.x >= 9.1)
+        {
+            transform.position = new Vector3(9, transform.position.y, transform.position.z);
+        }
         if (hitPoints < 20 && !flash){
             characterFlash();
             flash = true;
@@ -124,7 +137,7 @@ public class CharacterTwoController2D : MonoBehaviour
         //Vector2 move = playerControls.GameplayP2.Move.ReadValue<Vector2>();
         // Movement controls
         // moveLeftAction.triggered || moveRightAction.triggered
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || gamepad.dpad.left.isPressed || gamepad.dpad.right.isPressed)   // && (isGrounded || Mathf.Abs(r2d.velocity.x) > 0.01f)
+        if (Input.GetKey(KeyCode.LeftArrow) && grabbed == false || Input.GetKey(KeyCode.RightArrow) && grabbed == false || gamepad.dpad.left.isPressed && grabbed == false || gamepad.dpad.right.isPressed && grabbed == false)   // && (isGrounded || Mathf.Abs(r2d.velocity.x) > 0.01f)
         {
             moveDirection = Input.GetKey(KeyCode.LeftArrow) ? -1 : 1;
             moveDirection = gamepad.dpad.left.isPressed ? -1 : 1;
@@ -162,7 +175,7 @@ public class CharacterTwoController2D : MonoBehaviour
         }
 
         // Jumping
-        if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded || jumpAction.triggered && isGrounded)
+        if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded && grabbed == false || jumpAction.triggered && isGrounded && grabbed == false)
         {            
             r2d.AddForce(Vector2.up * jumpForce);
             //r2d.velocity = new Vector2(r2d.velocity.x, jumpHeight);
@@ -395,8 +408,8 @@ public class CharacterTwoController2D : MonoBehaviour
     {
         SendDamage(7f);
         animator.SetTrigger("isHit");
-        StartCoroutine("Pause");
-        CameraShake.Shake(0.25f, 0.25f);
+        //StartCoroutine("Pause");
+        //CameraShake.Shake(0.25f, 0.25f);
         if (powerPoints < maxPowerPoints)
         {
             powerPoints = powerPoints + 7f;
@@ -437,6 +450,17 @@ public class CharacterTwoController2D : MonoBehaviour
             Destroy (gameObject);
             gM.PlayerTwoDied();
         }
+    }
+    public void GrabToggle()
+    {
+        if (grabbed == true)
+        {
+            grabbed = false;
+        }
+        //if (grabbed == false)
+        // {
+        //    grabbed = true;
+        // }
     }
     void CreateDust()
     {
