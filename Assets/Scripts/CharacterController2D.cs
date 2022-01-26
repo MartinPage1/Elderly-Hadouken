@@ -36,6 +36,8 @@ public class CharacterController2D : MonoBehaviour
     public GameObject superLeft;
     public GameObject superRight;
     public GameObject currentPlayerTwo;
+    public GameObject dustTrail;
+    public GameObject dustLanding;
 
     public SpriteRenderer spriteRenderer;
     public Sprite newSprite;
@@ -148,13 +150,15 @@ public class CharacterController2D : MonoBehaviour
             {
                 facingRight = true;
                 t.localScale = new Vector3(Mathf.Abs(t.localScale.x), t.localScale.y, transform.localScale.z);
-                CreateDust();
+                //CreateDust();
+                CreateDustTrail();
             }
             if (moveDirection < 0 && facingRight)
             {
                 facingRight = false;
                 t.localScale = new Vector3(-Mathf.Abs(t.localScale.x), t.localScale.y, t.localScale.z);
-                CreateDust();
+                //CreateDust();
+                CreateDustTrail();
             }
         }
 
@@ -486,5 +490,9 @@ public class CharacterController2D : MonoBehaviour
     void CreateDust()
     {
         dust.Play();
+    }
+    void CreateDustTrail()
+    {
+        Instantiate(dustTrail, transform.position + new Vector3(0, -.9f, 0), transform.rotation);
     }
 }

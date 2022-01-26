@@ -4966,7 +4966,7 @@ MonoBehaviour:
   dust: {fileID: 0}
   maxSpeed: 3.4
   jumpHeight: 12
-  jumpForce: 850
+  jumpForce: 550
   gravityScale: 1.5
   maxHitPoints: 100
   hitPoints: 100
