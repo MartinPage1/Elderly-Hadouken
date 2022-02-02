@@ -256,6 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4171ccacf7846744afa237d3793a620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dust: {fileID: 0}
   maxSpeed: 8.4
   jumpHeight: 10.5
   jumpForce: 850
@@ -274,6 +275,8 @@ MonoBehaviour:
   superLeft: {fileID: 0}
   superRight: {fileID: 0}
   currentPlayerOne: {fileID: 0}
+  dustTrail: {fileID: 6320178239467168870, guid: 08876e45efb353f4a97b96f4f18500ad, type: 3}
+  dustLanding: {fileID: 4209156842788367364, guid: 84dde6c2396277144a3e24aa61c46950, type: 3}
   spriteRenderer: {fileID: 312201330700065299}
   newSprite: {fileID: 0}
   walkingSprite: {fileID: 0}

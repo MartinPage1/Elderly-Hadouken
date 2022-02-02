@@ -5108,6 +5108,8 @@ MonoBehaviour:
   superLeft: {fileID: 1974261914189423091, guid: 458fc53a757b5844b8cabd9c299bcfa6, type: 3}
   superRight: {fileID: 6072234599626219304, guid: ee71f1eb50e88454eac2f7b3d19206d4, type: 3}
   currentPlayerTwo: {fileID: 0}
+  dustTrail: {fileID: 6320178239467168870, guid: 08876e45efb353f4a97b96f4f18500ad, type: 3}
+  dustLanding: {fileID: 4209156842788367364, guid: 84dde6c2396277144a3e24aa61c46950, type: 3}
   spriteRenderer: {fileID: 7271053122373638397}
   newSprite: {fileID: 21300000, guid: 920564477d53ab047b02578f308408d6, type: 3}
   walkingSprite: {fileID: 0}

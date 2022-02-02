@@ -152,6 +152,7 @@ public class CharacterController2D : MonoBehaviour
                 t.localScale = new Vector3(Mathf.Abs(t.localScale.x), t.localScale.y, transform.localScale.z);
                 //CreateDust();
                 CreateDustTrail();
+                //Instantiate(dustTrail, transform.position + new Vector3(0, -.88f, 0), transform.rotation);
             }
             if (moveDirection < 0 && facingRight)
             {
@@ -169,7 +170,8 @@ public class CharacterController2D : MonoBehaviour
             //r2d.velocity = new Vector2(r2d.velocity.x, jumpHeight);
             animator.SetTrigger("isJumping");
             Stretch();
-            CreateDust();
+            //CreateDust();
+            CreateDustLanding();
         }
     }
     void HPTracker()
@@ -493,6 +495,10 @@ public class CharacterController2D : MonoBehaviour
     }
     void CreateDustTrail()
     {
-        Instantiate(dustTrail, transform.position + new Vector3(0, -.9f, 0), transform.rotation);
+        Instantiate(dustTrail, transform.position + new Vector3(0, -.7f, 0), transform.rotation);
+    }
+    void CreateDustLanding()
+    {
+        Instantiate(dustLanding, transform.position + new Vector3(-.4f, 0, 0), transform.rotation);
     }
 }

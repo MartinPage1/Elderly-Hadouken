@@ -42,6 +42,8 @@ public class CharacterTwoController2D : MonoBehaviour
     public GameObject superLeft;
     public GameObject superRight;
     public GameObject currentPlayerOne;
+    public GameObject dustTrail;
+    public GameObject dustLanding;
 
     public SpriteRenderer spriteRenderer;
     public Sprite newSprite;
@@ -164,13 +166,15 @@ public class CharacterTwoController2D : MonoBehaviour
             {
                 facingRight = true;
                 t.localScale = new Vector3(Mathf.Abs(t.localScale.x), t.localScale.y, transform.localScale.z);
-                CreateDust();
+               // CreateDust();
+                CreateDustTrail();
             }
             if (moveDirection < 0 && facingRight)
             {
                 facingRight = false;
                 t.localScale = new Vector3(-Mathf.Abs(t.localScale.x), t.localScale.y, t.localScale.z);
-                CreateDust();
+                //CreateDust();
+                CreateDustTrail();
             }
         }
 
@@ -181,7 +185,8 @@ public class CharacterTwoController2D : MonoBehaviour
             //r2d.velocity = new Vector2(r2d.velocity.x, jumpHeight);
             animator.SetTrigger("isJumping");
             Stretch();
-            CreateDust();
+            //CreateDust();
+            CreateDustLanding();
         }
     }
     void HPTracker()
@@ -465,5 +470,13 @@ public class CharacterTwoController2D : MonoBehaviour
     void CreateDust()
     {
         dust.Play();
+    }
+    void CreateDustTrail()
+    {
+        Instantiate(dustTrail, transform.position + new Vector3(0, -.7f, 0), transform.rotation);
+    }
+    void CreateDustLanding()
+    {
+        Instantiate(dustLanding, transform.position + new Vector3(-.4f, 0, 0), transform.rotation);
     }
 }
