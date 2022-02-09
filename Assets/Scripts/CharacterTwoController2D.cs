@@ -411,9 +411,9 @@ public class CharacterTwoController2D : MonoBehaviour
     }
     public void BettyDamage()
     {
-        SendDamage(7f);
+        SendDamage(5f);
         animator.SetTrigger("isHit");
-        //StartCoroutine("Pause");
+        StartCoroutine("Pause");
         //CameraShake.Shake(0.25f, 0.25f);
         if (powerPoints < maxPowerPoints)
         {
@@ -449,6 +449,12 @@ public class CharacterTwoController2D : MonoBehaviour
             Destroy (col.collider.gameObject);
             audioSource.PlayOneShot(scream, 0.7F);
             //ChangeSprite();
+        }
+        if (col.collider.gameObject.tag == "Pap")
+        {
+            SendDamage(5f);
+            getPP(10f);
+            Destroy(col.collider.gameObject);
         }
         if (hitPoints <= 0)
         {

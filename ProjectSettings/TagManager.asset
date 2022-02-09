@@ -14,6 +14,7 @@ TagManager:
   - PlayerTwoHealthSlider
   - BigDentureOne
   - BigDentureTwo
+  - Pap
   layers:
   - Default
   - TransparentFX

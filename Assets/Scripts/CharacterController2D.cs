@@ -334,7 +334,7 @@ public class CharacterController2D : MonoBehaviour
     {
         if (Time.time > lastDamagedAt + .5f)
         {
-            SendDamage(3f);
+            SendDamage(2f);
             animator.SetTrigger("isHit");
             //StartCoroutine("Pause");
             CameraShake.Shake(0.25f, 0.25f);
@@ -451,6 +451,12 @@ public class CharacterController2D : MonoBehaviour
                 gM.PlayerOneDied();
             }
         }
+        if (col.collider.gameObject.tag == "Pap")
+        {
+            SendDamage(5f);
+            getPP(10f);
+            Destroy(col.collider.gameObject);
+        }
         if (col.collider.gameObject.tag == "BigDentureTwo")
         {
             if (Time.time > lastDamagedAt)
@@ -470,6 +476,7 @@ public class CharacterController2D : MonoBehaviour
                 audioSource.PlayOneShot(scream, 0.7F);
                 lastDamagedAt = Time.time;
             }
+
             if (hitPoints <= 0)
             {
                 Destroy(gameObject);

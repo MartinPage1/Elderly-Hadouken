@@ -103,6 +103,11 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene("NurseryLevel");
         }
+
+        if (Input.GetKeyDown(KeyCode.Keypad9))
+        {
+            SceneManager.LoadScene("ParkLevel");
+        }
     }
     public void AlbertsAttackP1()
     {
