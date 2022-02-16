@@ -26,11 +26,14 @@ public class CharacterController2D : MonoBehaviour
     public GameManager gM;
     public Transform firePoint;
     bool grabbed = false;
+    bool block = false;
+    bool canBlock = true;
 
     public Slider healthBar;
     public PlayerControls playerControls;
     AudioSource audioSource;
     public AudioClip scream;
+    public AudioClip blockSound;
     public GameObject weakShot;
     public GameObject weakShot2;
     public GameObject superLeft;
@@ -97,6 +100,10 @@ public class CharacterController2D : MonoBehaviour
             Destroy(gameObject);
             gM.PlayerOneDied();
         }
+        if (powerPoints <= 0)
+        {
+            powerPoints = 0;
+        }
         if (grabbed == true)
         {
             animator.SetTrigger("isHit");
@@ -124,7 +131,7 @@ public class CharacterController2D : MonoBehaviour
         }
 
         // Movement controls
-        if (Input.GetKey(KeyCode.A) && grabbed == false || Input.GetKey(KeyCode.D) && grabbed == false)   // && (isGrounded || Mathf.Abs(r2d.velocity.x) > 0.01f)
+        if (Input.GetKey(KeyCode.A) && grabbed == false && block == false || Input.GetKey(KeyCode.D) && grabbed == false && block == false)   // && (isGrounded || Mathf.Abs(r2d.velocity.x) > 0.01f)
         {
             moveDirection = Input.GetKey(KeyCode.A) ? -1 : 1;
             animator.SetBool("isWalking", true);
@@ -137,11 +144,22 @@ public class CharacterController2D : MonoBehaviour
                 animator.SetBool("isWalking", false);
             }
         }
+        // Blocking Controls
+        if (Input.GetKey(KeyCode.F) && grabbed == false && canBlock == true && powerPoints > 0)
+        {
+            animator.SetBool("isBlocking", true);
+            block = true;
+        }
+        else
+        {
+            animator.SetBool("isBlocking", false);
+            block = false;
+        }
         // Power Points max stay at max
-            if (powerPoints >= maxPowerPoints)
-            {
-                powerPoints = maxPowerPoints;
-            }
+        //if (powerPoints >= maxPowerPoints)
+         //   {
+        //        powerPoints = maxPowerPoints;
+         //   }
             
         // Change facing direction
         if (moveDirection != 0)
@@ -164,7 +182,7 @@ public class CharacterController2D : MonoBehaviour
         }
 
         // Jumping
-        if (Input.GetKeyDown(KeyCode.W) && isGrounded && grabbed == false || Input.GetKeyDown(KeyCode.Space) && isGrounded && grabbed == false)
+        if (Input.GetKeyDown(KeyCode.W) && isGrounded && grabbed == false && block == false || Input.GetKeyDown(KeyCode.Space) && isGrounded && grabbed == false && block == false)
         {
             r2d.AddForce(Vector2.up * jumpForce);
             //r2d.velocity = new Vector2(r2d.velocity.x, jumpHeight);
@@ -430,7 +448,7 @@ public class CharacterController2D : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col)
     {
         //PlayerTwoBullet
-        if (col.collider.gameObject.name == "PlayerTwoBullet(Clone)" || col.collider.gameObject.name == "AlbertSuperP2(Clone)")
+        if (col.collider.gameObject.name == "PlayerTwoBullet(Clone)" && block == false || col.collider.gameObject.name == "AlbertSuperP2(Clone)" && block == false)
         {
             CharacterTwoController2D opponent = currentPlayerTwo.GetComponent<CharacterTwoController2D>();
             if (opponent != null)
@@ -450,6 +468,13 @@ public class CharacterController2D : MonoBehaviour
                 Destroy(gameObject);
                 gM.PlayerOneDied();
             }
+        }
+        else if (col.collider.gameObject.name == "PlayerTwoBullet(Clone)" && block == true && powerPoints > 0 || col.collider.gameObject.name == "AlbertSuperP2(Clone)" && block == true && powerPoints > 0)
+        {
+            Destroy(col.collider.gameObject);
+            StartCoroutine("Pause");
+            powerPoints = powerPoints - 25;
+            audioSource.PlayOneShot(blockSound, 0.7F);
         }
         if (col.collider.gameObject.tag == "Pap")
         {

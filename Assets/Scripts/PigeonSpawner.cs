@@ -17,12 +17,12 @@ public class PigeonSpawner : MonoBehaviour
        
         if (left == false)
         {
-            spawnTime = Random.Range(10, 30);
+            spawnTime = Random.Range(10, 20);
             Invoke("Spawn", spawnTime);
         }
         else
         {
-            spawnTime = Random.Range(10, 30);
+            spawnTime = Random.Range(10, 20);
             Invoke("Spawn2", spawnTime);
         }
     }
