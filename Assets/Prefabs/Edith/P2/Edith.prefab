@@ -5072,10 +5072,11 @@ MonoBehaviour:
   gM: {fileID: 0}
   healthBar: {fileID: 0}
   scream: {fileID: 8300000, guid: cd5ee7b7292981f45869ed1b0f2f2181, type: 3}
+  blockSound: {fileID: 0}
   weakShot: {fileID: 1877653790135997335, guid: adf177498128c3b4eb64c7487e9441a9, type: 3}
   weakShot2: {fileID: 593514715383976031, guid: 535af518323b2b64bb6584919eb2e193, type: 3}
-  superLeft: {fileID: 0}
-  superRight: {fileID: 0}
+  superLeft: {fileID: 4310014305776195856, guid: 9c00bed1e32b87d4595e016e9572c9e2, type: 3}
+  superRight: {fileID: 7466428819814543742, guid: 259cb960918e34e4fa0c673f54228f61, type: 3}
   currentPlayerOne: {fileID: 0}
   dustTrail: {fileID: 6320178239467168870, guid: 08876e45efb353f4a97b96f4f18500ad, type: 3}
   dustLanding: {fileID: 4209156842788367364, guid: 84dde6c2396277144a3e24aa61c46950, type: 3}

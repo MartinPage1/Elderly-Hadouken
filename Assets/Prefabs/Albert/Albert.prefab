@@ -5097,12 +5097,11 @@ MonoBehaviour:
   gravityScale: 1.5
   maxHitPoints: 100
   hitPoints: 100
-  powerPoints: 100
+  powerPoints: 0
   maxPowerPoints: 100
   mainCamera: {fileID: 0}
   cooldown: 1
   gM: {fileID: 0}
-  firePoint: {fileID: 5405197631268891843}
   healthBar: {fileID: 0}
   scream: {fileID: 8300000, guid: e641a9819916f8440ab322ed80ec33fb, type: 3}
   blockSound: {fileID: 8300000, guid: 5ecdfae89edbee0448a9e4f01688296d, type: 3}

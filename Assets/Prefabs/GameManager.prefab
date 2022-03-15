@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7413695387535568999
+--- !u!1 &333685978741823450
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7413695387535568997}
-  - component: {fileID: 7413695387535568998}
-  - component: {fileID: 7413695387535568996}
+  - component: {fileID: 333685978741823448}
+  - component: {fileID: 333685978741823451}
+  - component: {fileID: 333685978741823449}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -18,13 +18,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7413695387535568997
+--- !u!4 &333685978741823448
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7413695387535568999}
+  m_GameObject: {fileID: 333685978741823450}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.548862, y: -3.2205822, z: -0.74756503}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,19 +32,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7413695387535568998
+--- !u!114 &333685978741823451
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7413695387535568999}
+  m_GameObject: {fileID: 333685978741823450}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3cd43a6aeb24da44d9783eb697f5919d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerOnePrefab: {fileID: 7271053122373638391, guid: 9a3a9ca6918a3f24995e4b4e532ef897, type: 3}
+  playerOnePrefab: {fileID: 6547636643702708770, guid: fa22bb61e1d6ab14eade1e973562632d, type: 3}
   playerTwoPrefab: {fileID: 7784680694310026503, guid: 748fc5987eab48f4c99277a8cc183ff3, type: 3}
   albertPrefab: {fileID: 6547636643702708770, guid: fa22bb61e1d6ab14eade1e973562632d, type: 3}
   bettyPrefab: {fileID: 7271053122373638391, guid: 9a3a9ca6918a3f24995e4b4e532ef897, type: 3}
@@ -54,14 +54,14 @@ MonoBehaviour:
   edithPrefab: {fileID: 290649681750154767, guid: ae229a383554b6b48ac234a9626ba08c, type: 3}
   currentPlayerOne: {fileID: 0}
   currentPlayerTwo: {fileID: 0}
-  albertSuperP1: {fileID: 0}
+  albertSuperP1: {fileID: 9041250600926563598, guid: 39d91c2a28d34b0449de7ae5af446a1d, type: 3}
   albertSuperP2: {fileID: 0}
   archieSuperBirdOneP1: {fileID: 0}
   archieSuperBirdTwoP1: {fileID: 0}
   archieSuperBirdThreeP1: {fileID: 0}
-  archieSuperBirdOneP2: {fileID: 0}
-  archieSuperBirdTwoP2: {fileID: 0}
-  archieSuperBirdThreeP2: {fileID: 0}
+  archieSuperBirdOneP2: {fileID: 3021259574898251199, guid: 4bc55c85b86816840958a38d7e503dcd, type: 3}
+  archieSuperBirdTwoP2: {fileID: 6192811255384612111, guid: 227c43de27afe4544a1b00c13f78a139, type: 3}
+  archieSuperBirdThreeP2: {fileID: 1319024315658942211, guid: bc4ccb7aa5bdfc04a9de286ba9fc15c6, type: 3}
   playerOneHP: {fileID: 0}
   playerTwoHP: {fileID: 0}
   playerOnePP: {fileID: 0}
@@ -72,13 +72,13 @@ MonoBehaviour:
   healthP2: 0
   powerP1: 0
   powerP2: 0
---- !u!114 &7413695387535568996
+--- !u!114 &333685978741823449
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7413695387535568999}
+  m_GameObject: {fileID: 333685978741823450}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1384774831, guid: e743331561ef77147ae48cda9bcb8209, type: 3}
@@ -431,7 +431,7 @@ MonoBehaviour:
     manualUpdate: 0
     outVariableIndices: 
     keepDelayedEventsOnStateExit: 0
-    preprocessed: 1
+    preprocessed: 0
     ExposedEvents: []
     OutputEvents: []
     RestartOnEnable: 1
@@ -467,4 +467,4 @@ MonoBehaviour:
     handleAnimatorMove: 0
     handleAnimatorIK: 0
   fsmTemplate: {fileID: 0}
-  eventHandlerComponentsAdded: 1
+  eventHandlerComponentsAdded: 0

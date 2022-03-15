@@ -24,7 +24,6 @@ public class CharacterController2D : MonoBehaviour
     private float lastAttackedAt = -9999f;
     private float lastDamagedAt = -9999f;
     public GameManager gM;
-    public Transform firePoint;
     bool grabbed = false;
     bool block = false;
     bool canBlock = true;
@@ -230,6 +229,7 @@ public class CharacterController2D : MonoBehaviour
                 Instantiate(superLeft, transform.position + new Vector3(-1f, 0, 0), transform.rotation);
                 animator.SetTrigger("isAttacking");
                 lastAttackedAt = Time.time;
+                powerPoints = 0;
             }
         }
         //Shoot Left
@@ -240,6 +240,7 @@ public class CharacterController2D : MonoBehaviour
                 Instantiate(superRight, transform.position + new Vector3(1f, 0, 0), transform.rotation);
                 animator.SetTrigger("isAttacking");
                 lastAttackedAt = Time.time;
+                powerPoints = 0;
             }
         }
     }

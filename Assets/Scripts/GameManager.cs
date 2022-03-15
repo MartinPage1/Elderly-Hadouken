@@ -7,6 +7,11 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    //public static GameManager Instance;
+
+    public int selectedChar1 = 0;
+    public int selectedChar2 = 0;
+
     public GameObject playerOnePrefab;
     public GameObject playerTwoPrefab;
     public GameObject albertPrefab;
@@ -15,6 +20,14 @@ public class GameManager : MonoBehaviour
     public GameObject gertiePrefab;
     public GameObject richardPrefab;
     public GameObject edithPrefab;
+
+
+    public GameObject albert2Prefab;
+    public GameObject betty2Prefab;
+    public GameObject archi2Prefab;
+    public GameObject gertie2Prefab;
+    public GameObject richard2Prefab;
+    public GameObject edith2Prefab;
 
     public GameObject currentPlayerOne;
     public GameObject currentPlayerTwo;
@@ -40,20 +53,95 @@ public class GameManager : MonoBehaviour
     public float powerP2;
     private bool gameOver = false;
 
-    // Start is called before the first frame update
-    void Start()
+    public int Getint(string KeyName)
     {
-        //playerOneHP = GameObject.Find("PlayerOneHealth").GetComponent<TMPro.TextMeshProUGUI>().text;
-        Time.timeScale = 1;
-        Instantiate(playerOnePrefab, new Vector3(-7.8f, -2.8f, 0), Quaternion.identity);
-        Instantiate(playerTwoPrefab, new Vector3(8f, -2.8f, 0), Quaternion.identity);
+        return PlayerPrefs.GetInt(KeyName);
     }
 
+    void Awake()
+    {
+        selectedChar1 = Getint("char1");
+        selectedChar2 = Getint("char2");
+
+        //if (Instance == null)
+       // {
+       //     DontDestroyOnLoad(gameObject);
+        //    Instance = this;
+       // }
+       // else if (Instance != this)
+       // {
+       //     Destroy(gameObject);
+       // }
+        //Player 1 player selected spawn
+        if (selectedChar1 == 1)
+        {
+            Instantiate(albertPrefab, new Vector3(-7.8f, -2.8f, 0), Quaternion.identity);
+        }
+        if (selectedChar1 == 2)
+        {
+            Instantiate(archiPrefab, new Vector3(-7.8f, -2.8f, 0), Quaternion.identity);
+        }
+        if (selectedChar1 == 3)
+        {
+            Instantiate(richardPrefab, new Vector3(-7.8f, -2.8f, 0), Quaternion.identity);
+        }
+        if (selectedChar1 == 4)
+        {
+            Instantiate(bettyPrefab, new Vector3(-7.8f, -2.8f, 0), Quaternion.identity);
+        }
+        if (selectedChar1 == 5)
+        {
+            Instantiate(gertiePrefab, new Vector3(-7.8f, -2.8f, 0), Quaternion.identity);
+        }
+        if (selectedChar1 == 6)
+        {
+            Instantiate(edithPrefab, new Vector3(-7.8f, -2.8f, 0), Quaternion.identity);
+        }
+
+        //Player 2 character Selected Spawn
+        if (selectedChar2 == 1)
+        {
+            Instantiate(archiPrefab, new Vector3(8f, -2.8f, 0), Quaternion.identity);
+        }
+        if (selectedChar2 == 2)
+        {
+            Instantiate(archiPrefab, new Vector3(8f, -2.8f, 0), Quaternion.identity);
+        }
+        if (selectedChar2 == 3)
+        {
+            Instantiate(archiPrefab, new Vector3(8f, -2.8f, 0), Quaternion.identity);
+        }
+        if (selectedChar2 == 4)
+        {
+            Instantiate(archiPrefab, new Vector3(8f, -2.8f, 0), Quaternion.identity);
+        }
+        if (selectedChar2 == 5)
+        {
+            Instantiate(archiPrefab, new Vector3(8f, -2.8f, 0), Quaternion.identity);
+        }
+        if (selectedChar2 == 6)
+        {
+            Instantiate(archiPrefab, new Vector3(8f, -2.8f, 0), Quaternion.identity);
+        }
+        Time.timeScale = 1;
+    }
+   
     // Update is called once per frame
     void Update()
     {
+
+        selectedChar1 = Getint("char1");
+        selectedChar2 = Getint("char2");
         currentPlayerOne = GameObject.FindGameObjectWithTag("Player");
         currentPlayerTwo = GameObject.FindGameObjectWithTag("Player 2");
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            selectedChar1 = 1;
+        }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            selectedChar1 = 2;
+        }
         if ((Input.GetKey(KeyCode.R)) && (gameOver==true))
         {
             RestartScene();

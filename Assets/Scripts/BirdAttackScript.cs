@@ -5,7 +5,7 @@ using UnityEngine;
 public class BirdAttackScript : MonoBehaviour
 {
     private Vector3 targetPos;
-    public float mySpeed = 5f;
+    public float mySpeed = 10f;
     public GameObject mytarget;
 
     void Awake()

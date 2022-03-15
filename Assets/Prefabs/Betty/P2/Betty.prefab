@@ -268,10 +268,11 @@ MonoBehaviour:
   gM: {fileID: 0}
   healthBar: {fileID: 0}
   scream: {fileID: 8300000, guid: e641a9819916f8440ab322ed80ec33fb, type: 3}
+  blockSound: {fileID: 0}
   weakShot: {fileID: 3041042242711486395, guid: acb0465142b2bed45922b396095f29bf, type: 3}
   weakShot2: {fileID: 4362813298478553972, guid: c10d47eeadfb4ef4996622f18bcedf7f, type: 3}
-  superLeft: {fileID: 0}
-  superRight: {fileID: 0}
+  superLeft: {fileID: 5766740223851616896, guid: e3d044a352a19d54f9eb1883a0bd6b86, type: 3}
+  superRight: {fileID: 2909574227487694242, guid: 897a9f125bb944f4188eca9520103b02, type: 3}
   currentPlayerOne: {fileID: 0}
   dustTrail: {fileID: 6320178239467168870, guid: 08876e45efb353f4a97b96f4f18500ad, type: 3}
   dustLanding: {fileID: 4209156842788367364, guid: 84dde6c2396277144a3e24aa61c46950, type: 3}

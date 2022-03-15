@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EdithSuper2 : MonoBehaviour
 {
-    //Right
+    //Left
     public float projectileSpeed = 9f;
     public GameObject currentPlayerTwo;
     public Rigidbody2D rb;
