@@ -11,6 +11,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pigeon2
       objectReference: {fileID: 0}
+    - target: {fileID: 4516611474270031657, guid: 4028710618d0b99469f01ea1408095dd, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4516611474270031657, guid: 4028710618d0b99469f01ea1408095dd, type: 3}
+      propertyPath: m_UsedByEffector
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4516611474270031661, guid: 4028710618d0b99469f01ea1408095dd, type: 3}
       propertyPath: m_FlipX
       value: 0

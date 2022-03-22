@@ -3206,7 +3206,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ghost: {fileID: 483524590520907772, guid: 1dd8a25731816a44faa72738dc59c6dd, type: 3}
-  spawnTime: 10
+  spawnTime: 7
+  objectSizeMax: 2
 --- !u!1 &1071451816
 GameObject:
   m_ObjectHideFlags: 0

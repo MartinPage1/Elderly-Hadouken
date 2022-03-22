@@ -101,27 +101,27 @@ public class GameManager : MonoBehaviour
         //Player 2 character Selected Spawn
         if (selectedChar2 == 1)
         {
-            Instantiate(archiPrefab, new Vector3(8f, -2.8f, 0), Quaternion.identity);
+            Instantiate(albert2Prefab, new Vector3(8f, -2.8f, 0), Quaternion.identity);
         }
         if (selectedChar2 == 2)
         {
-            Instantiate(archiPrefab, new Vector3(8f, -2.8f, 0), Quaternion.identity);
+            Instantiate(archi2Prefab, new Vector3(8f, -2.8f, 0), Quaternion.identity);
         }
         if (selectedChar2 == 3)
         {
-            Instantiate(archiPrefab, new Vector3(8f, -2.8f, 0), Quaternion.identity);
+            Instantiate(richard2Prefab, new Vector3(8f, -2.8f, 0), Quaternion.identity);
         }
         if (selectedChar2 == 4)
         {
-            Instantiate(archiPrefab, new Vector3(8f, -2.8f, 0), Quaternion.identity);
+            Instantiate(betty2Prefab, new Vector3(8f, -2.8f, 0), Quaternion.identity);
         }
         if (selectedChar2 == 5)
         {
-            Instantiate(archiPrefab, new Vector3(8f, -2.8f, 0), Quaternion.identity);
+            Instantiate(gertie2Prefab, new Vector3(8f, -2.8f, 0), Quaternion.identity);
         }
         if (selectedChar2 == 6)
         {
-            Instantiate(archiPrefab, new Vector3(8f, -2.8f, 0), Quaternion.identity);
+            Instantiate(edith2Prefab, new Vector3(8f, -2.8f, 0), Quaternion.identity);
         }
         Time.timeScale = 1;
     }

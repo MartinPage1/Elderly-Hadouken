@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 9189640047616006680}
   m_Layer: 0
   m_Name: Pigeon
-  m_TagString: Untagged
+  m_TagString: Pigeon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -268,4 +268,4 @@ MonoBehaviour:
   pap: {fileID: 8535243587840819498, guid: eca5d9fddb3804b408408ee2d85315b0, type: 3}
   papSpotY: -2
   papFrequencyA: 0.1
-  papFrequencyB: 1
+  papFrequencyB: 0.7

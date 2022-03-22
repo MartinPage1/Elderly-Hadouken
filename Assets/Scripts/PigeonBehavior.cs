@@ -13,6 +13,8 @@ public class PigeonBehavior : MonoBehaviour
     public float papSpotY = -1f;
     public float papFrequencyA = 1f;
     public float papFrequencyB = 4f;
+
+    private float lastDamagedAt = -9999f;
     // Start is called before the first frame update
     void Awake()
     {
@@ -30,6 +32,26 @@ public class PigeonBehavior : MonoBehaviour
         else
         {
             transform.position += new Vector3(-1f, 0.0f, 0.0f) * Time.deltaTime * speed;
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        CharacterTwoController2D opponent = collision.GetComponent<CharacterTwoController2D>();
+        CharacterController2D opponent2 = collision.GetComponent<CharacterController2D>();
+        if (Time.time > lastDamagedAt + 4f)
+        {
+            if (opponent != null)
+            {
+                lastDamagedAt = Time.time;
+                opponent.PigeonDamage();
+                //StartCoroutine("DestroySelf", 2f);
+            }
+            if (opponent2 != null)
+            {
+                opponent2.PigeonDamage();
+                lastDamagedAt = Time.time;
+                //StartCoroutine("DestroySelf", 2f);
+            }
         }
     }
     void Pap()

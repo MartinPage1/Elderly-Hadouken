@@ -8,13 +8,13 @@ public class lightningSpawner : MonoBehaviour
     public float spawnTime = 6f;            // How long between each spawn.
     private Vector3 spawnPosition;
     public float rangeA = 2f;
-    public float rangeB = 15f;
+    public float rangeB = 7f;
     // Use this for initialization
     void Start()
     {
         // Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
 
-         spawnTime = Random.Range(2, 15);
+         spawnTime = Random.Range(2, 5);
          Invoke("Spawn", spawnTime);
     }
 

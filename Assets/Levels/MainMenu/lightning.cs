@@ -11,7 +11,7 @@ public class lightning : MonoBehaviour
     }
     private IEnumerator DestroySelf()
     {
-        float pauseEndTime = Time.realtimeSinceStartup + .767f;
+        float pauseEndTime = Time.realtimeSinceStartup + 2f;
         while (Time.realtimeSinceStartup < pauseEndTime)
         {
             yield return 0;

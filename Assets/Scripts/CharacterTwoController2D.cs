@@ -464,6 +464,31 @@ public class CharacterTwoController2D : MonoBehaviour
             lastDamagedAt = Time.time;
         }
     }
+    public void PigeonDamage()
+    {
+        if (Time.time > lastDamagedAt + 4f)
+        {
+            SendDamage(3f);
+            animator.SetTrigger("isHit");
+            StartCoroutine("Pause");
+            //CameraShake.Shake(0.25f, 0.25f);
+            if (powerPoints < maxPowerPoints)
+            {
+                powerPoints = powerPoints + 2f;
+            }
+            else if (powerPoints >= maxPowerPoints)
+            {
+                powerPoints = maxPowerPoints;
+            }
+            audioSource.PlayOneShot(scream, 0.7F);
+            if (hitPoints <= 0)
+            {
+                Destroy(gameObject);
+                gM.PlayerTwoDied();
+                lastDamagedAt = Time.time;
+            }
+        }
+    }
     void OnCollisionEnter2D(Collision2D col)
     {
         //PlayerOneBullet
@@ -492,7 +517,15 @@ public class CharacterTwoController2D : MonoBehaviour
             powerPoints = powerPoints - 25;
             audioSource.PlayOneShot(blockSound, 0.7F);
         }
-        if (col.collider.gameObject.tag == "BigDentureTwo")
+        if (col.collider.gameObject.tag == "Pigeon")
+        {
+            SendDamage(5f); 
+            animator.SetTrigger("isHit");
+            //artCoroutine("Pause");
+            getPP(2f);
+            audioSource.PlayOneShot(scream, 0.7F);
+        }
+        if (col.collider.gameObject.tag == "BigDentureOne")
         {
             if (Time.time > lastDamagedAt)
             {
@@ -522,8 +555,10 @@ public class CharacterTwoController2D : MonoBehaviour
         if (col.collider.gameObject.tag == "Pap")
         {
             SendDamage(5f);
-            getPP(10f);
-            Destroy(col.collider.gameObject);
+            getPP(2f);
+            Destroy(col.collider.gameObject); 
+            animator.SetTrigger("isHit");
+            audioSource.PlayOneShot(scream, 0.7F);
         }
         if (hitPoints <= 0)
         {

@@ -420,6 +420,31 @@ public class CharacterController2D : MonoBehaviour
             gM.PlayerOneDied();
         }
     }
+    public void PigeonDamage()
+    {
+        if (Time.time > lastDamagedAt + 4f)
+        {
+            SendDamage(3f);
+            animator.SetTrigger("isHit");
+            StartCoroutine("Pause");
+            //CameraShake.Shake(0.25f, 0.25f);
+            if (powerPoints < maxPowerPoints)
+            {
+                powerPoints = powerPoints + 2f;
+            }
+            else if (powerPoints >= maxPowerPoints)
+            {
+                powerPoints = maxPowerPoints;
+            }
+            audioSource.PlayOneShot(scream, 0.7F);
+            if (hitPoints <= 0)
+            {
+                Destroy(gameObject);
+                gM.PlayerTwoDied();
+                lastDamagedAt = Time.time;
+            }
+        }
+    }
     public void GertieDamage()
     {
         if (Time.time > lastDamagedAt + 1f)
@@ -480,8 +505,18 @@ public class CharacterController2D : MonoBehaviour
         if (col.collider.gameObject.tag == "Pap")
         {
             SendDamage(5f);
-            getPP(10f);
+            getPP(2f);
             Destroy(col.collider.gameObject);
+            animator.SetTrigger("isHit");
+            audioSource.PlayOneShot(scream, 0.7F);
+        }
+        if (col.collider.gameObject.tag == "Pigeon")
+        {
+            SendDamage(5f);
+            animator.SetTrigger("isHit");
+            //artCoroutine("Pause");
+            getPP(2f);
+            audioSource.PlayOneShot(scream, 0.7F);
         }
         if (col.collider.gameObject.tag == "BigDentureTwo")
         {

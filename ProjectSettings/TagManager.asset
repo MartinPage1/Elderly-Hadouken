@@ -15,6 +15,7 @@ TagManager:
   - BigDentureOne
   - BigDentureTwo
   - Pap
+  - Pigeon
   layers:
   - Default
   - TransparentFX
