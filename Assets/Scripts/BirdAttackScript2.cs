@@ -31,7 +31,7 @@ public class BirdAttackScript2 : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        CharacterController2D opponent = collision.GetComponent<CharacterController2D>();
+        CharacterTwoController2D opponent = collision.GetComponent<CharacterTwoController2D>();
         if (opponent != null)
         {
             opponent.ArchieDamage();

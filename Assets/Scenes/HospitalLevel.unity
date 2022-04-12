@@ -7114,6 +7114,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 757716171232639974, guid: c322398203610a948a28aa82d342d396, type: 3}
     - target: {fileID: 333685978741823451, guid: d2df1ea0077000f4d9671f76682f42d4, type: 3}
+      propertyPath: selectedChar1
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 333685978741823451, guid: d2df1ea0077000f4d9671f76682f42d4, type: 3}
+      propertyPath: selectedChar2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 333685978741823451, guid: d2df1ea0077000f4d9671f76682f42d4, type: 3}
       propertyPath: richard2Prefab
       value: 
       objectReference: {fileID: 112664217825860752, guid: 3fe97eed7d03d9149bb7bf7768e5d6d8, type: 3}

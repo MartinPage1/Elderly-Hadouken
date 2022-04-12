@@ -107,6 +107,7 @@ public class CharacterTwoController2D : MonoBehaviour
         HPTracker();
         PPTracker();
         WeakAttack();
+        powerPoints = 100f;
         if (hitPoints <= 0)
         {
             Destroy(gameObject);
@@ -116,11 +117,15 @@ public class CharacterTwoController2D : MonoBehaviour
         {
             powerPoints = 0;
         }
+        if (powerPoints >= 100)
+        {
+            powerPoints = 100;
+        }
         if (grabbed == true)
         {
             animator.SetTrigger("isHit");
         }
-        if (powerPoints == maxPowerPoints)
+        if (powerPoints >= maxPowerPoints)
         {
             SuperAttack();
         }
@@ -305,7 +310,7 @@ public class CharacterTwoController2D : MonoBehaviour
         Debug.DrawLine(groundCheckPos, groundCheckPos - new Vector3(0, colliderRadius, 0), isGrounded ? Color.green : Color.red);
         Debug.DrawLine(groundCheckPos, groundCheckPos - new Vector3(colliderRadius, 0, 0), isGrounded ? Color.green : Color.red);
     }
-        void ChangeSprite()
+    void ChangeSprite()
     {
         spriteRenderer.sprite = newSprite; 
     }
@@ -419,23 +424,27 @@ public class CharacterTwoController2D : MonoBehaviour
     }
     public void BettyDamage()
     {
-        SendDamage(5f);
-        animator.SetTrigger("isHit");
-        StartCoroutine("Pause");
-        //CameraShake.Shake(0.25f, 0.25f);
-        if (powerPoints < maxPowerPoints)
+        if (Time.time > lastDamagedAt + .2f)
         {
-            powerPoints = powerPoints + 7f;
-        }
-        else if (powerPoints >= maxPowerPoints)
-        {
-            powerPoints = maxPowerPoints;
-        }
-        audioSource.PlayOneShot(scream, 0.7F);
-        if (hitPoints <= 0)
-        {
-            Destroy(gameObject);
-            gM.PlayerTwoDied();
+            SendDamage(5f);
+            animator.SetTrigger("isHit");
+            StartCoroutine("Pause");
+            //CameraShake.Shake(0.25f, 0.25f);
+            if (powerPoints < maxPowerPoints)
+            {
+                powerPoints = powerPoints + 7f;
+            }
+            else if (powerPoints >= maxPowerPoints)
+            {
+                powerPoints = maxPowerPoints;
+            }
+            audioSource.PlayOneShot(scream, 0.7F);
+            if (hitPoints <= 0)
+            {
+                Destroy(gameObject);
+                gM.PlayerTwoDied();
+            }
+            lastDamagedAt = Time.time;
         }
     }
     public void GertieDamage()
@@ -487,6 +496,26 @@ public class CharacterTwoController2D : MonoBehaviour
                 gM.PlayerTwoDied();
                 lastDamagedAt = Time.time;
             }
+        }
+    }
+    public void DentureDamage()
+    {
+        if (Time.time > lastDamagedAt + .2f)
+        {
+            CharacterController2D opponent = currentPlayerOne.GetComponent<CharacterController2D>();
+            grabbed = true;
+            transform.position += new Vector3(Random.Range(-1f, 1f), 0.0f, 0.0f) * Time.deltaTime * maxSpeed;
+
+            if (opponent != null)
+            {
+                opponent.getPP(7f);
+            }
+            SendDamage(6f);
+            CameraShake.Shake(0.15f, 0.15f);
+            animator.SetTrigger("isHit");
+            //StartCoroutine("Pause");
+            audioSource.PlayOneShot(scream, 0.7F);
+            lastDamagedAt = Time.time;
         }
     }
     void OnCollisionEnter2D(Collision2D col)

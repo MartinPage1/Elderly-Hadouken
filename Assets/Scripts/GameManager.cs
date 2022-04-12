@@ -208,6 +208,8 @@ public class GameManager : MonoBehaviour
     public void ArchieAttackP1()
     {
         Instantiate(archieSuperBirdOneP1, new Vector3(Random.Range(-4f, 4f), 6f, 0), Quaternion.identity);
+        Instantiate(archieSuperBirdTwoP1, new Vector3(Random.Range(-4f, 4f), 6f, 0), Quaternion.identity);
+        Instantiate(archieSuperBirdThreeP1, new Vector3(Random.Range(-4f, 4f), 6f, 0), Quaternion.identity);
     }
     public void ArchieAttackP2()
     {

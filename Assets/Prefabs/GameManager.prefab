@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd43a6aeb24da44d9783eb697f5919d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedChar1: 0
+  selectedChar2: 0
   playerOnePrefab: {fileID: 6547636643702708770, guid: fa22bb61e1d6ab14eade1e973562632d, type: 3}
   playerTwoPrefab: {fileID: 7784680694310026503, guid: 748fc5987eab48f4c99277a8cc183ff3, type: 3}
   albertPrefab: {fileID: 6547636643702708770, guid: fa22bb61e1d6ab14eade1e973562632d, type: 3}
@@ -52,6 +54,12 @@ MonoBehaviour:
   gertiePrefab: {fileID: 5523231041774966167, guid: 4e925780f0e78d64697eace03602fec2, type: 3}
   richardPrefab: {fileID: 112664217825860752, guid: 3fe97eed7d03d9149bb7bf7768e5d6d8, type: 3}
   edithPrefab: {fileID: 290649681750154767, guid: ae229a383554b6b48ac234a9626ba08c, type: 3}
+  albert2Prefab: {fileID: 0}
+  betty2Prefab: {fileID: 0}
+  archi2Prefab: {fileID: 0}
+  gertie2Prefab: {fileID: 0}
+  richard2Prefab: {fileID: 0}
+  edith2Prefab: {fileID: 0}
   currentPlayerOne: {fileID: 0}
   currentPlayerTwo: {fileID: 0}
   albertSuperP1: {fileID: 9041250600926563598, guid: 39d91c2a28d34b0449de7ae5af446a1d, type: 3}
@@ -431,7 +439,7 @@ MonoBehaviour:
     manualUpdate: 0
     outVariableIndices: 
     keepDelayedEventsOnStateExit: 0
-    preprocessed: 0
+    preprocessed: 1
     ExposedEvents: []
     OutputEvents: []
     RestartOnEnable: 1
@@ -467,4 +475,4 @@ MonoBehaviour:
     handleAnimatorMove: 0
     handleAnimatorIK: 0
   fsmTemplate: {fileID: 0}
-  eventHandlerComponentsAdded: 0
+  eventHandlerComponentsAdded: 1

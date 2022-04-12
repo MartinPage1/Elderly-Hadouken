@@ -115,6 +115,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc0f4edb6a1c3646ab28426c9553654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectileSpeed: 9
+  currentPlayerOne: {fileID: 0}
+  rb: {fileID: 0}
+  stuck: 0
 --- !u!82 &7242106524075987154
 AudioSource:
   m_ObjectHideFlags: 0

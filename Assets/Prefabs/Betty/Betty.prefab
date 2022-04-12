@@ -5095,14 +5095,14 @@ MonoBehaviour:
   gravityScale: 1.5
   maxHitPoints: 100
   hitPoints: 100
-  powerPoints: 100
+  powerPoints: 0
   maxPowerPoints: 100
   mainCamera: {fileID: 0}
   cooldown: 1
   gM: {fileID: 0}
-  firePoint: {fileID: 8047786310818911635}
   healthBar: {fileID: 0}
   scream: {fileID: 8300000, guid: f2f9cc91bac05bf41ad154bf5eca231d, type: 3}
+  blockSound: {fileID: 0}
   weakShot: {fileID: 1672605607296239341, guid: 57fbb19f84800804e82ebddca1ca3eb7, type: 3}
   weakShot2: {fileID: 8243799898286346314, guid: 12a48a1259a7361469367e329fff494a, type: 3}
   superLeft: {fileID: 1974261914189423091, guid: 458fc53a757b5844b8cabd9c299bcfa6, type: 3}

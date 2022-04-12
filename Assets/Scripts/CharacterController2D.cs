@@ -94,6 +94,7 @@ public class CharacterController2D : MonoBehaviour
         HPTracker();
         PPTracker();
         WeakAttack();
+        powerPoints = 100f;
         if (hitPoints <= 0)
         {
             Destroy(gameObject);
@@ -103,12 +104,16 @@ public class CharacterController2D : MonoBehaviour
         {
             powerPoints = 0;
         }
+        if (powerPoints >= 100)
+        {
+            powerPoints = 100;
+        }
         if (grabbed == true)
         {
             animator.SetTrigger("isHit");
         }
         currentPlayerTwo = GameObject.FindGameObjectWithTag("Player 2");
-        if (powerPoints == maxPowerPoints)
+        if (powerPoints >= maxPowerPoints)
         {
             SuperAttack();
         }
@@ -146,12 +151,12 @@ public class CharacterController2D : MonoBehaviour
         // Blocking Controls
         if (Input.GetKey(KeyCode.F) && grabbed == false && canBlock == true && powerPoints > 0)
         {
-            animator.SetBool("isBlocking", true);
+            //animator.SetBool("isBlocking", true);
             block = true;
         }
         else
         {
-            animator.SetBool("isBlocking", false);
+            //animator.SetBool("isBlocking", false);
             block = false;
         }
         // Power Points max stay at max
@@ -298,7 +303,6 @@ public class CharacterController2D : MonoBehaviour
         Debug.DrawLine(groundCheckPos, groundCheckPos - new Vector3(0, colliderRadius, 0), isGrounded ? Color.green : Color.red);
         Debug.DrawLine(groundCheckPos, groundCheckPos - new Vector3(colliderRadius, 0, 0), isGrounded ? Color.green : Color.red);
     }
-
     void ChangeSprite()
     {
         spriteRenderer.sprite = newSprite; 
@@ -351,7 +355,7 @@ public class CharacterController2D : MonoBehaviour
     }
     public void ArchieDamage()
     {
-        if (Time.time > lastDamagedAt + .5f)
+        if (Time.time > lastDamagedAt + 1f)
         {
             SendDamage(2f);
             animator.SetTrigger("isHit");
@@ -401,23 +405,27 @@ public class CharacterController2D : MonoBehaviour
     }
     public void BettyDamage()
     {
-        SendDamage(6f);
-        animator.SetTrigger("isHit");
-        //StartCoroutine("Pause");
-        //CameraShake.Shake(0.25f, 0.25f);
-        if (powerPoints < maxPowerPoints)
+        if (Time.time > lastDamagedAt + .2f)
         {
-            powerPoints = powerPoints + 7f;
-        }
-        else if (powerPoints >= maxPowerPoints)
-        {
-            powerPoints = maxPowerPoints;
-        }
-        audioSource.PlayOneShot(scream, 0.7F);
-        if (hitPoints <= 0)
-        {
-            Destroy(gameObject);
-            gM.PlayerOneDied();
+            SendDamage(6f);
+            animator.SetTrigger("isHit");
+            StartCoroutine("Pause");
+            //CameraShake.Shake(0.25f, 0.25f);
+            if (powerPoints < maxPowerPoints)
+            {
+                powerPoints = powerPoints + 7f;
+            }
+            else if (powerPoints >= maxPowerPoints)
+            {
+                powerPoints = maxPowerPoints;
+            }
+            audioSource.PlayOneShot(scream, 0.7F);
+            if (hitPoints <= 0)
+            {
+                Destroy(gameObject);
+                gM.PlayerOneDied();
+            }
+            lastDamagedAt = Time.time;
         }
     }
     public void PigeonDamage()
@@ -468,6 +476,26 @@ public class CharacterController2D : MonoBehaviour
                 Destroy(gameObject);
                 gM.PlayerOneDied();
             }
+            lastDamagedAt = Time.time;
+        }
+    }
+    public void DentureDamage()
+    {
+        if (Time.time > lastDamagedAt + .2f)
+        {
+            CharacterTwoController2D opponent = currentPlayerTwo.GetComponent<CharacterTwoController2D>();
+            grabbed = true;
+            transform.position += new Vector3(Random.Range(-1f, 1f), 0.0f, 0.0f) * Time.deltaTime * maxSpeed;
+
+            if (opponent != null)
+            {
+                opponent.getPP(7f);
+            }
+            SendDamage(6f);
+            CameraShake.Shake(0.15f, 0.15f);
+            animator.SetTrigger("isHit");
+            //StartCoroutine("Pause");
+            audioSource.PlayOneShot(scream, 0.7F);
             lastDamagedAt = Time.time;
         }
     }

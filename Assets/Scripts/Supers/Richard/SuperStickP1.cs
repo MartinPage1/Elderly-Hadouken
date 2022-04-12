@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SuperStick : MonoBehaviour
+public class SuperStickP1 : MonoBehaviour
 {
     public float projectileSpeed = 9f;
-    public GameObject currentPlayerOne;
+    public GameObject currentPlayerTwo;
     public Rigidbody2D rb;
     public bool stuck;
 
@@ -16,23 +16,23 @@ public class SuperStick : MonoBehaviour
 
     void Update()
     {
-        currentPlayerOne = GameObject.FindGameObjectWithTag("Player");
+        currentPlayerTwo = GameObject.FindGameObjectWithTag("Player 2");
         if (stuck == false)
         {
             //transform.position += new Vector3(1f, 0.0f, 0.0f) * Time.deltaTime * projectileSpeed;
         }
         if (stuck == true)
         {
-            transform.position = currentPlayerOne.transform.position;
+            transform.position = currentPlayerTwo.transform.position;
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //CharacterController2D opponent = collision.GetComponent<CharacterController2D>();
         //if (opponent != null)
-        if (collision.collider.gameObject.tag == "Player")
+        if (collision.collider.gameObject.tag == "Player 2")
         {
-            transform.parent = currentPlayerOne.transform;
+            transform.parent = currentPlayerTwo.transform;
             stuck = true;
             StartCoroutine("Damage", 1f);
             //StartCoroutine("DestroySelf", 8f);
@@ -40,7 +40,7 @@ public class SuperStick : MonoBehaviour
     }
     private IEnumerator Damage(float time)
     {
-        CharacterController2D opponent = currentPlayerOne.GetComponent<CharacterController2D>();
+        CharacterTwoController2D opponent = currentPlayerTwo.GetComponent<CharacterTwoController2D>();
         float pauseEndTime = Time.realtimeSinceStartup + time;
         while (Time.realtimeSinceStartup < pauseEndTime)
         {
@@ -61,6 +61,6 @@ public class SuperStick : MonoBehaviour
     }
     private void OnDestroy()
     {
-        currentPlayerOne.GetComponent<CharacterController2D>().GrabToggle();
+        currentPlayerTwo.GetComponent<CharacterTwoController2D>().GrabToggle();
     }
 }

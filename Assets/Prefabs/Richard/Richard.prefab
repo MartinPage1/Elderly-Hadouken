@@ -266,13 +266,13 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   cooldown: 1
   gM: {fileID: 0}
-  firePoint: {fileID: 5909834548538983493}
   healthBar: {fileID: 0}
   scream: {fileID: 8300000, guid: bebfbf983d169044cb836885ac558be7, type: 3}
+  blockSound: {fileID: 0}
   weakShot: {fileID: 5905683640495045693, guid: 11235c5d45665724d80cd84cd285ff10, type: 3}
   weakShot2: {fileID: 4411409215375524095, guid: 5e9e8b63d3860ff418ec12e6d2b9911f, type: 3}
-  superLeft: {fileID: 0}
-  superRight: {fileID: 0}
+  superLeft: {fileID: 4143870466797944692, guid: 450a801e9c832504f8185281394a0b72, type: 3}
+  superRight: {fileID: 1534604394424045189, guid: 31cf2cc27095e324bbb5448a72468d95, type: 3}
   currentPlayerTwo: {fileID: 0}
   dustTrail: {fileID: 6320178239467168870, guid: 08876e45efb353f4a97b96f4f18500ad, type: 3}
   dustLanding: {fileID: 4209156842788367364, guid: 84dde6c2396277144a3e24aa61c46950, type: 3}
