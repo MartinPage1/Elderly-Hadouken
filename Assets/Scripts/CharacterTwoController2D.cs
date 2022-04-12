@@ -107,7 +107,6 @@ public class CharacterTwoController2D : MonoBehaviour
         HPTracker();
         PPTracker();
         WeakAttack();
-        powerPoints = 100f;
         if (hitPoints <= 0)
         {
             Destroy(gameObject);
