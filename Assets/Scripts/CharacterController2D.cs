@@ -324,12 +324,12 @@ public class CharacterController2D : MonoBehaviour
     }
     void characterFlash()
     {
-        StartCoroutine(FlashSprite(GetComponent<SpriteRenderer>(), .2f, 1f, 1, 1));
+        StartCoroutine(FlashSprite(GetComponent<SpriteRenderer>(), .4f, 1f, 1, 2));
     }
     public IEnumerator FlashSprite(SpriteRenderer renderer, float minAlpha, float maxAlpha, float interval, float duration)
     {
         Color colorNow = renderer.color;
-        Color minColor = new Color(renderer.color.r, renderer.color.g, renderer.color.b, minAlpha);
+        Color minColor = new Color(renderer.color.r, .2f, .2f, minAlpha);
         Color maxColor = new Color(renderer.color.r, renderer.color.g, renderer.color.b, maxAlpha);
 
         float currentInterval = 0;

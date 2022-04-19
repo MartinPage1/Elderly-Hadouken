@@ -17,6 +17,13 @@ public class LevelSelectBehavior : MonoBehaviour
         parkSelectButton.onClick.AddListener(() => ButtonClicked(3));
         startLevelButton.onClick.AddListener(() => ButtonClicked(4));
     }
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("CharacterSelect");
+        }
+    }
 
     void TaskOnClick()
     {
